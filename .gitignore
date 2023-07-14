@@ -1,110 +1,117 @@
 # JetBrains Rider
 .idea/
-
-# Build output
-/bin/
-/obj/
-
-# User-specific files
-*.userprefs
+# Ignore Visual Studio files
+*.obj
+*.pdb
+*.exe
+*.dll
 *.suo
 *.user
+*.bak
+*.cache
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.VC.db
+*.VC.VC.opendb
 
-# NuGet packages
-/packages/
-
-# MSTest test Results
-TestResults/
-
-# Visual Studio code coverage results
-.vs/
-
-# Build results of an MSBuild compilation
+# Ignore Visual Studio folders
 [Bb]in/
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
-[Bb]uild[Bb]in/
-*.[Oo]bj/
+_UpgradeReport_Files/
+Backup*/
+UpgradeLog*.XML
+ipch/
+*.aps
+*.vs/
+[Tt]est[Rr]esult*/
+[Oo]bj/
 
-# .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
-**/Properties/PublishProfiles/
+# Ignore build outputs
+[Dd]ebug/
+[Rr]elease/
+x64/
 *_i.c
 *_p.c
 *.ilk
 *.meta
-*.msbuildlog
-*.res
+*.obj
+*.pch
 *.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
 *.log
-*.tlog
-*.dat
-*.lastbuildstate
-*.zip
-*.gz
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
 
-# Rider Rider
-.idea/
-*.iml
+# Ignore NuGet Packages
+## TODO: If you have NuGet Package Restore enabled, uncomment the next line
+#packages/
 
-# Resharper
-_ReSharper*/
-*.ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
-*.ReSharper.user
-_ReSharper*/
-*.ReSharper.*/
-
-# Unity
-[Ll]ibrary/
-[Tt]emp/
-[Oo]bj/
-[Bb]uild/
-[Bb]uilds/
-[Bb]uild[Bb]ackup/
-Assets/AssetStoreTools*
-
-# Visual Studio
-*.sw*
-*.user
-*.bak
-*.ncb
+# Ignore user-specific files
 *.suo
-*.cache
-*.csproj.user
-*.resx
+*.user
+*.userosscache
 *.sln.docstates
 
-# Xcode
-*.xcworkspace/
-*.xcworkspacedata/
-*.xccheckout
-
-# Build generated
+# Ignore build results
 [Dd]ebug/
 [Rr]elease/
 x64/
-
-# Others
-[Dd]ebug*/
-[Rr]elease*/
-*_ReSharper*/
-*.rdb
-
-# Xamarin
-*.exe
-*.dll
-*.nupkg
-*.p12
-*.pfx
 *.apk
-*.ap_
+*.apkx
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
 
-# Microsoft Azure
-/.azure/
-*.publishsettings
+# Ignore .NET Core build results
+[Rr]elease/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]eleasePublic/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vshost.*
+*.vsix
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Ignore StyleCop
+StyleCopReport.xml
