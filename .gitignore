@@ -1,0 +1,110 @@
+# JetBrains Rider
+.idea/
+
+# Build output
+/bin/
+/obj/
+
+# User-specific files
+*.userprefs
+*.suo
+*.user
+
+# NuGet packages
+/packages/
+
+# MSTest test Results
+TestResults/
+
+# Visual Studio code coverage results
+.vs/
+
+# Build results of an MSBuild compilation
+[Bb]in/
+[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]uild[Bb]in/
+*.[Oo]bj/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/PublishProfiles/
+*_i.c
+*_p.c
+*.ilk
+*.meta
+*.msbuildlog
+*.res
+*.pdb
+*.log
+*.tlog
+*.dat
+*.lastbuildstate
+*.zip
+*.gz
+
+# Rider Rider
+.idea/
+*.iml
+
+# Resharper
+_ReSharper*/
+*.ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.ReSharper.user
+_ReSharper*/
+*.ReSharper.*/
+
+# Unity
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Bb]uild[Bb]ackup/
+Assets/AssetStoreTools*
+
+# Visual Studio
+*.sw*
+*.user
+*.bak
+*.ncb
+*.suo
+*.cache
+*.csproj.user
+*.resx
+*.sln.docstates
+
+# Xcode
+*.xcworkspace/
+*.xcworkspacedata/
+*.xccheckout
+
+# Build generated
+[Dd]ebug/
+[Rr]elease/
+x64/
+
+# Others
+[Dd]ebug*/
+[Rr]elease*/
+*_ReSharper*/
+*.rdb
+
+# Xamarin
+*.exe
+*.dll
+*.nupkg
+*.p12
+*.pfx
+*.apk
+*.ap_
+
+# Microsoft Azure
+/.azure/
+*.publishsettings
