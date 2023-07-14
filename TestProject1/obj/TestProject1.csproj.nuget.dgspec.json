@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/TestProject1/TestProject1.csproj": {}
+  },
+  "projects": {
+    "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions.csproj",
+        "projectName": "PassingTheCodingTestQuestions",
+        "projectPath": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions.csproj",
+        "packagesPath": "/Users/edonisseferi/.nuget/packages/",
+        "outputPath": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/edonisseferi/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "LanguageExt.Core": {
+              "target": "Package",
+              "version": "[4.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/edonisseferi/.dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/TestProject1/TestProject1.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/TestProject1/TestProject1.csproj",
+        "projectName": "TestProject1",
+        "projectPath": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/TestProject1/TestProject1.csproj",
+        "packagesPath": "/Users/edonisseferi/.nuget/packages/",
+        "outputPath": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/TestProject1/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/edonisseferi/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions.csproj": {
+                "projectPath": "/Users/edonisseferi/RiderProjects/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions/PassingTheCodingTestQuestions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.5.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.6.1, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.4.2, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/edonisseferi/.dotnet/sdk/7.0.304/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
