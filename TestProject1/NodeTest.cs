@@ -19,4 +19,23 @@ public class NodeTest
         var res = JsonConvert.SerializeObject(BreadthFirstSearch.Search(node, 4));
         Debug.WriteLine(res);
     }
+
+    [Test]
+    public void Test2()
+    {
+        /*projects: a, b, c, d, e, f
+dependencies: (a, d), (f, b), (b, d), (f, a), (d, c) 
+Output: f, e, a, b, d, c */
+        var sut = new BuildOrder(new List<Tuple<string, string>>
+        {
+            new Tuple<string, string>("a", "d"),
+            new Tuple<string, string>("f", "b"),
+            new Tuple<string, string>("b", "d"),
+            new Tuple<string, string>("f", "a"),
+            new Tuple<string, string>("d", "c")
+        });
+
+        var res = sut.GetBuildOrder();
+        Debug.WriteLine(string.Join(", ", res));
+    }
 }
