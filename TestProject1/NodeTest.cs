@@ -26,7 +26,7 @@ public class NodeTest
         /*projects: a, b, c, d, e, f
 dependencies: (a, d), (f, b), (b, d), (f, a), (d, c) 
 Output: f, e, a, b, d, c */
-        var sut = new BuildOrder(new List<Tuple<string, string>>
+        var sut = new ProjectOrder(new[] { "a", "b", "c", "d", "e", "f" },new List<Tuple<string, string>>
         {
             new Tuple<string, string>("a", "d"),
             new Tuple<string, string>("f", "b"),
@@ -35,7 +35,7 @@ Output: f, e, a, b, d, c */
             new Tuple<string, string>("d", "c")
         });
 
-        var res = sut.GetBuildOrder();
-        Debug.WriteLine(string.Join(", ", res));
+        var result = string.Join(", ", sut.GetPostOrder().Select(x => x.Value));
+        Assert.That(result, Is.EqualTo("f, e, a, b, d, c");
     }
 }
