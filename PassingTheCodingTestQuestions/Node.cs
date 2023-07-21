@@ -1,8 +1,10 @@
 using LanguageExt;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("TestProject1")]
 namespace PassingTheCodingTestQuestions;
 
-public class Node
+internal class Node
 {
     public Node(int value) => Value = value;
 

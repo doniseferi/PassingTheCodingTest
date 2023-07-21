@@ -2,7 +2,7 @@ using LanguageExt;
 
 namespace PassingTheCodingTestQuestions;
 
-public class BreadthFirstSearch
+internal class BreadthFirstSearch
 {
     public static Option<Node> Search(Node node, int value)
     {

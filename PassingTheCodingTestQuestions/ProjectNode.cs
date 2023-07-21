@@ -1,13 +1,12 @@
-﻿public class ProjectNode
+﻿internal class ProjectNode
 {
-    public ProjectNode(string value) => Value = value;
+    public ProjectNode(string value) => _ = !string.IsNullOrWhiteSpace(value)
+        ? Value = value
+        : throw new ArgumentException("Value cannot be null or whitespace.", nameof(value));
+
     public string Value { get; }
-    //proxy for left
+
     public List<ProjectNode> Dependencies { get; } = new List<ProjectNode>();
-    //proxy for right
-    public List<ProjectNode> Dependents { get; } = new List<ProjectNode>();
 
-    public void AddDependency(ProjectNode node) => Dependencies.Add(node);
-
-    public void AddDependent(ProjectNode node) => Dependents.Add(node);
+    public void AddDependency(ProjectNode node) => Dependencies.Add(node ?? throw new ArgumentNullException(nameof(node)));
 }

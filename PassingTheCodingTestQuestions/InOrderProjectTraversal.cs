@@ -1,39 +1,40 @@
-/*
-projects: a, b, c, d, e, f
-dependencies: (a, d), (f, b), (b, d), (f, a), (d, c) 
-Output: f, e, a, b, d, c 
-this needs post order traversal, left node, right node, current node
-*/
-public class ProjectOrder
+internal class InOrderProjectTraversal
 {
-    private List<string> _projects;
-    private List<Tuple<string, string>> _dependencies;
+    private readonly List<string> _projects;
+    private readonly List<(string Project, string Dependent)> _projectDependencies;
 
-    public ProjectOrder(
+    public InOrderProjectTraversal(
         IEnumerable<string> projects,
-        IEnumerable<Tuple<string, string>> dependencies)
+        IEnumerable<(string Project, string Dependent)> dependencies)
     {
         _projects = projects.ToList();
-        _dependencies = dependencies.ToList();
+        _projectDependencies = dependencies.ToList();
     }
 
-    public List<ProjectNode> GetPostOrder()
+    public List<ProjectNode> GetInOrder()
     {
         var nodes = BuildBiDirectionalNodes();
         var visited = new HashSet<ProjectNode>();
         var queue = new Queue<ProjectNode>();
-        PostOrder(nodes[0], queue.Enqueue, visited.Contains, (node) => { visited.Add(node); });
-        return nodes.ToList();
+        nodes.ForEach(x => InOrderTraversal(x, queue.Enqueue, visited.Contains, x => { visited.Add(x); }));
+        return queue.ToList();
 
-        void PostOrder(
+        static void InOrderTraversal(
         ProjectNode node,
         Action<ProjectNode> add,
         Func<ProjectNode, bool> hasVisited,
         Action<ProjectNode> addToVisited)
         {
-            //all left nodes
-            //all right nodes
-            //current node
+            if (hasVisited(node))
+                return;
+
+            addToVisited(node);
+            foreach (var dependency in node.Dependencies)
+            {
+                if (!hasVisited(dependency))
+                    InOrderTraversal(dependency, add, hasVisited, addToVisited);
+            }
+            add(node);
         }
     }
 
@@ -41,13 +42,12 @@ public class ProjectOrder
     {
         var nodes = new Dictionary<string, ProjectNode>();
 
-        foreach (var (project, dependency) in _dependencies)
+        foreach (var (project, dependency) in _projectDependencies)
         {
             var projectNode = GetOrAddNode(project);
-            var dependentNode = GetOrAddNode(dependency);
+            var dependent = GetOrAddNode(dependency);
 
-            projectNode.AddDependency(dependentNode);
-            dependentNode.AddDependent(projectNode);
+            dependent.AddDependency(projectNode);
         }
         foreach (var project in _projects)
         {

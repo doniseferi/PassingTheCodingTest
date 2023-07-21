@@ -23,19 +23,40 @@ public class NodeTest
     [Test]
     public void Test2()
     {
-        /*projects: a, b, c, d, e, f
-dependencies: (a, d), (f, b), (b, d), (f, a), (d, c) 
-Output: f, e, a, b, d, c */
-        var sut = new ProjectOrder(new[] { "a", "b", "c", "d", "e", "f" },new List<Tuple<string, string>>
-        {
-            new Tuple<string, string>("a", "d"),
-            new Tuple<string, string>("f", "b"),
-            new Tuple<string, string>("b", "d"),
-            new Tuple<string, string>("f", "a"),
-            new Tuple<string, string>("d", "c")
-        });
+        var projects = new[] { "a", "b", "c", "d", "e", "f" };
 
-        var result = string.Join(", ", sut.GetPostOrder().Select(x => x.Value));
-        Assert.That(result, Is.EqualTo("f, e, a, b, d, c");
+        var projectsAndDependencies = new List<(string Project, string DependentProject)>
+        {
+            ("a", "d"),
+            ("f", "b"),
+            ("b", "d"),
+            ("f", "a"),
+            ("d", "c")
+        };
+
+        var sut = new InOrderProjectTraversal(projects, projectsAndDependencies);
+
+        var inOrderNodes = sut.GetInOrder();
+        var result = string.Join(",", inOrderNodes.Select(x => x.Value));
+        Assert.That(HasCharacterBeforeOthers(result, 'f', new[] { 'a', 'b' }));
+        Assert.That(HasCharacterBeforeOthers(result, 'b', new[] { 'd' }));
+        Assert.That(HasCharacterBeforeOthers(result, 'd', new[] { 'c' }));
+        Assert.That(HasCharacterBeforeOthers(result, 'a', new[] { 'd', 'c' }));
+        Assert.That(HasCharacterBeforeOthers(result, 'c', new char[] { }));
+
+    }
+
+    private static bool HasCharacterBeforeOthers(string str, char targetChar, char[] otherChars)
+    {
+        var indexOfTarget = str.IndexOf(targetChar);
+        if (indexOfTarget == -1) return false;
+
+        foreach (var ch in otherChars)
+        {
+            var indexOfCh = str.IndexOf(ch);
+            if (indexOfCh != -1 && indexOfTarget > indexOfCh) return false;
+        }
+
+        return true;
     }
 }
