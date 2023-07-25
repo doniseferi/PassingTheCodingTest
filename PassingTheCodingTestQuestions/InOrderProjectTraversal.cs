@@ -57,8 +57,15 @@ internal class InOrderProjectTraversal
             }
         }
 
-        return nodes.Values.ToList();
+        var projectNodes = nodes.Values.ToList();
 
+        var hasCircularDependency = projectNodes.Any(x => x.ContainsCircularDependency());
+        
+        return hasCircularDependency
+            ? throw new ArgumentException("Circular dependency detected")
+            : projectNodes;
+        
+        
         ProjectNode GetOrAddNode(string value)
         {
             if (nodes.ContainsKey(value))

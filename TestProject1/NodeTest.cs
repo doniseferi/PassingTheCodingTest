@@ -43,7 +43,25 @@ public class NodeTest
         Assert.That(HasCharacterBeforeOthers(result, 'd', new[] { 'c' }));
         Assert.That(HasCharacterBeforeOthers(result, 'a', new[] { 'd', 'c' }));
         Assert.That(HasCharacterBeforeOthers(result, 'c', new char[] { }));
+    }
+    
+    [Test]
+    public void Test3()
+    {
+        var projects = new[] { "a", "b", "c", "d", "e", "f" };
 
+        var projectsAndDependencies = new List<(string Project, string DependentProject)>
+        {
+            ("a", "d"),
+            ("f", "b"),
+            ("b", "d"),
+            ("f", "a"),
+            ("d", "a")
+        };
+
+        var sut = new InOrderProjectTraversal(projects, projectsAndDependencies);
+
+        Assert.Throws<ArgumentException>(() => sut.GetInOrder());
     }
 
     private static bool HasCharacterBeforeOthers(string str, char targetChar, char[] otherChars)

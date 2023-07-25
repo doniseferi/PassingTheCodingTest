@@ -9,4 +9,6 @@
     public List<ProjectNode> Dependencies { get; } = new List<ProjectNode>();
 
     public void AddDependency(ProjectNode node) => Dependencies.Add(node ?? throw new ArgumentNullException(nameof(node)));
+    
+    public bool ContainsCircularDependency() => Dependencies.Any(x => x.Value == Value || x.Dependencies.Any(c => c.Value == Value));
 }
