@@ -89,11 +89,6 @@ f <-- b
         Assert.Throws<ArgumentException>(() => sut.GetInOrder());
     }
 
-    [Test]
-    public void FirstCommonAncestor()
-    {
-    }
-
     private static bool HasCharacterBeforeOthers(string str, char targetChar, char[] otherChars)
     {
         var indexOfTarget = str.IndexOf(targetChar);

@@ -1,3 +1,4 @@
+using LanguageExt;
 using PassingTheCodingTestQuestions;
 
 namespace TestProject1;
@@ -5,7 +6,7 @@ namespace TestProject1;
 [TestFixture]
 public class FirstCommonAncestoryTests
 {
-    private Node _root;
+    private Option<Node> _root;
 
     [SetUp]
     public void Setup()
@@ -18,12 +19,12 @@ public class FirstCommonAncestoryTests
 2  4 6  8
          */
         _root = new Node(5);
-        _root.Add(3);
-        _root.Add(7);
-        _root.Add(2);
-        _root.Add(4);
-        _root.Add(6);
-        _root.Add(8);
+        _root.Iter(x => x.Add(3));
+        _root.Iter(x => x.Add(7));
+        _root.Iter(x => x.Add(2));
+        _root.Iter(x => x.Add(4));
+        _root.Iter(x => x.Add(6));
+        _root.Iter(x => x.Add(8));
     }
     
     [Test]
@@ -33,7 +34,7 @@ public class FirstCommonAncestoryTests
 
         // The common ancestor of 2 and 4 should be 3.
         Assert.IsTrue(commonAncestor.IsSome);
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(3)), None: () => Assert.Fail());
+        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(5)), None: () => Assert.Fail());
     }
 
     [Test]
