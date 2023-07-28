@@ -7,22 +7,47 @@ namespace TestProject1;
 public class NodeTest
 {
     [Test]
-    public void Test1()
+    public void BreadthFirstSearch()
     {
-        var node = new Node(5);
-        node.Add(3);
-        node.Add(7);
-        node.Add(2);
-        node.Add(4);
-        node.Add(6);
-        node.Add(8);
-        var res = JsonConvert.SerializeObject(BreadthFirstSearch.Search(node, 4));
-        Debug.WriteLine(res);
+        /*
+       5
+     /   \
+    3     7
+   / \   / \
+  2   4 6   8
+
+         */
+        var values = new[] { 5, 3, 7, 2, 4, 6, 8 };
+        var invalidValues = new[] { 1, 9, 0, 10 };
+        var node = new Node(values[0]);
+        node.Add(values[1]);
+        node.Add(values[2]);
+        node.Add(values[3]);
+        node.Add(values[4]);
+        node.Add(values[5]);
+        node.Add(values[6]);
+
+        values.Map(x => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, x))
+            .Iter((x,n) =>
+            {
+                var expectedValue = values[x];
+                Assert.IsTrue(n.IsSome);
+                n.Match(Some: y => Assert.That(y.Value, Is.EqualTo(expectedValue)), None: () => Assert.Fail());
+            });
+        
+        invalidValues.Map(x => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, x))
+            .Iter(x => Assert.IsTrue(x.IsNone));
     }
 
     [Test]
-    public void Test2()
+    public void ProjectBuildInOrderTraversal()
     {
+        /*
+a <-- d <-- c   e
+|     |
+v     v
+f <-- b
+         */
         var projects = new[] { "a", "b", "c", "d", "e", "f" };
 
         var projectsAndDependencies = new List<(string Project, string DependentProject)>
@@ -44,9 +69,9 @@ public class NodeTest
         Assert.That(HasCharacterBeforeOthers(result, 'a', new[] { 'd', 'c' }));
         Assert.That(HasCharacterBeforeOthers(result, 'c', new char[] { }));
     }
-    
+
     [Test]
-    public void Test3()
+    public void ProjectBuildInOrderTraversalCircularDependency()
     {
         var projects = new[] { "a", "b", "c", "d", "e", "f" };
 
@@ -62,6 +87,11 @@ public class NodeTest
         var sut = new InOrderProjectTraversal(projects, projectsAndDependencies);
 
         Assert.Throws<ArgumentException>(() => sut.GetInOrder());
+    }
+
+    [Test]
+    public void FirstCommonAncestor()
+    {
     }
 
     private static bool HasCharacterBeforeOthers(string str, char targetChar, char[] otherChars)
