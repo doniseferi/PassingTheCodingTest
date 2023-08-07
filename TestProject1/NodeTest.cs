@@ -10,13 +10,12 @@ public class NodeTest
     public void BreadthFirstSearch()
     {
         /*
-       5
-     /   \
-    3     7
-   / \   / \
-  2   4 6   8
-
-         */
+               5
+             /   \
+            3     7
+           / \   / \
+          2   4 6   8
+        */
         var values = new[] { 5, 3, 7, 2, 4, 6, 8 };
         var invalidValues = new[] { 1, 9, 0, 10 };
         var node = new Node(values[0]);
@@ -27,14 +26,16 @@ public class NodeTest
         node.Add(values[5]);
         node.Add(values[6]);
 
-        values.Map(x => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, x))
-            .Iter((x,n) =>
+        values.Map(searchedValue => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, searchedValue))
+            .Iter((x, n) =>
             {
                 var expectedValue = values[x];
                 Assert.IsTrue(n.IsSome);
-                n.Match(Some: y => Assert.That(y.Value, Is.EqualTo(expectedValue)), None: () => Assert.Fail());
+                n.Match(
+                    Some: y => Assert.AreEqual(y.Value, expectedValue),
+                    None: () => Assert.Fail());
             });
-        
+
         invalidValues.Map(x => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, x))
             .Iter(x => Assert.IsTrue(x.IsNone));
     }
