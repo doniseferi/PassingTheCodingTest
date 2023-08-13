@@ -1,26 +1,27 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/edonisseferi/Library/Caches/JetBrains/Rider2023.1/resharper-host/temp/Rider/vAny/CoverageData/_PassingTheCodingTestQuestions.754599555/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=41949c3b_002D6666_002D484f_002D917b_002D8a592992c49b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=26ddd779_002Dfb24_002D4a49_002Da35b_002Deb64bdba5647/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test_BST_Sequences_4_Node_Complex_Tree" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.Test2&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8468fcc9_002D7ad6_002D4022_002Dab1b_002D3fdb4ded9bc5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test_BST_Sequences_4_Node_Complex_Tree #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a3df4ffe_002Dab7a_002D4e72_002D9c09_002D864844e46dad/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test2 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.Test2&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a4851895_002D2d25_002D4647_002Dbc28_002Da5d89a4419f1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.Test1&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.InvalidOrder&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.Test2&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e771f5_002D198a_002D412b_002Da6f7_002D031b756b393a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test2 #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e771f5_002D198a_002D412b_002Da6f7_002D031b756b393a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test2 #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest&lt;/TestId&gt;
     &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.FirstCommonAncestoryTests&lt;/TestId&gt;
+    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	</wpf:ResourceDictionary>
