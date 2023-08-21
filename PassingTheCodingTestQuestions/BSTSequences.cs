@@ -55,6 +55,37 @@ internal static class BSTSequences
 
     private static int[][] Stitch(int[][] A, int[][] B)
     {
+        /*
+         the error is here because it only stitches 1 item per array into the other array, meaning the result
+         is a sequence of (a | b).length + 1.
+         This needs to do the following
+         1. concat a and b
+         for each index in concat result stitch
+         return
+         seq = concat a b
+         foreach (var i in seq)
+         foreach (var index in i)
+         stitch value in index into i
+         eg
+         1,2 3,4
+         expected
+         -> 1,2,3,4
+         -> 1,2,3,4
+         -> 2,1,3,4
+         -> 2,3,1,4
+         -> 2,3,4,1
+         -> 1,3,2,4
+         -> 1,4,3,2
+         ETC
+         current error
+         1,3,4
+         3,1,4
+         3,4,1
+         2,3,4
+         3,2,4
+         ETC
+         */
+
         var accum = new HashSet<int[]>();
         foreach (var item in A)
         {
@@ -77,28 +108,6 @@ internal static class BSTSequences
         {
             resAccum[counter] = sequence;
             counter++;
-        }
-
-        return resAccum;
-    }
-
-    private static int[][] Stitch(int value, int[][] values)
-    {
-        var accum = new HashSet<int[]>();
-        foreach (var item in values)
-        {
-            var sequences = Stitch(value, item);
-            foreach (var sequence in sequences)
-            {
-                accum.Add(sequence);
-            }
-        }
-
-        var resAccum = new int[accum.Count][];
-        var counter = 0;
-        foreach (var seq in accum)
-        {
-            resAccum[counter] = seq;
         }
 
         return resAccum;
