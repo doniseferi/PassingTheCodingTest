@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using PassingTheCodingTestQuestions;
 
 namespace TestProject1;
@@ -16,7 +15,7 @@ public class BSTSequencesTests
             new List<int> { 1 }
         };
 
-        Assert.AreEqual(expectedSequences, node.GetAllBSTSequences());
+        Assert.AreEqual(expectedSequences, node.GetAllBstSequences());
     }
 
     [Test]
@@ -32,9 +31,7 @@ public class BSTSequencesTests
             new List<int> { 2, 3, 1 }
         };
 
-        var n = node.ConverstAllBSTSequencesToString();
-
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBSTSequences());
+        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
     }
 
     [Test]
@@ -49,7 +46,7 @@ public class BSTSequencesTests
             new List<int> { 1, 2, 3 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBSTSequences());
+        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
     }
 
     [Test]
@@ -64,7 +61,7 @@ public class BSTSequencesTests
             new List<int> { 3, 2, 1 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBSTSequences());
+        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
     }
 
     [Test]
@@ -81,17 +78,97 @@ public class BSTSequencesTests
             new List<int> { 2, 3, 1, 4 },
             new List<int> { 2, 3, 4, 1 }
         };
-
-        var act = node.ConverstAllBSTSequencesToString();
         
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBSTSequences());
+        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
     }
 
     [Test]
-    public void Test_BST_Sequences_Empty_Tree()
+    public void Test_BST_Sequence_7_Node_Balanced_Compltex_Tree()
     {
-        Node node = null;
+        var node = new Node(5);
+        node.Add(3);
+        node.Add(7);
+        node.Add(1);
+        node.Add(4);
+        node.Add(6);
+        node.Add(9);
 
-        Assert.Throws<ArgumentNullException>(() => node.GetAllBSTSequences());
+        var expectedSequences = new[]
+        {
+            new[] { 5, 3, 7, 1, 4, 6, 9 },
+            new[] { 5, 3, 7, 1, 4, 9, 6 },
+            new[] { 5, 3, 7, 1, 6, 4, 9 },
+            new[] { 5, 3, 7, 1, 6, 9, 4 },
+            new[] { 5, 3, 7, 1, 9, 6, 4 },
+            new[] { 5, 3, 7, 1, 9, 4, 6 },
+            new[] { 5, 3, 7, 4, 1, 6, 9 },
+            new[] { 5, 3, 7, 4, 1, 9, 6 },
+            new[] { 5, 3, 7, 4, 6, 1, 9 },
+            new[] { 5, 3, 7, 4, 6, 9, 1 },
+            new[] { 5, 3, 7, 4, 9, 6, 1 },
+            new[] { 5, 3, 7, 4, 9, 1, 6 },
+            new[] { 5, 3, 7, 6, 1, 4, 9 },
+            new[] { 5, 3, 7, 6, 1, 9, 4 },
+            new[] { 5, 3, 7, 6, 4, 1, 9 },
+            new[] { 5, 3, 7, 6, 4, 9, 1 },
+            new[] { 5, 3, 7, 6, 9, 4, 1 },
+            new[] { 5, 3, 7, 6, 9, 1, 4 },
+            new[] { 5, 3, 7, 9, 1, 4, 6 },
+            new[] { 5, 3, 7, 9, 1, 6, 4 },
+            new[] { 5, 3, 7, 9, 4, 1, 6 },
+            new[] { 5, 3, 7, 9, 4, 6, 1 },
+            new[] { 5, 3, 7, 9, 6, 4, 1 },
+            new[] { 5, 3, 7, 9, 6, 1, 4 },
+            new[] { 5, 7, 3, 1, 4, 6, 9 },
+            new[] { 5, 7, 3, 1, 4, 9, 6 },
+            new[] { 5, 7, 3, 1, 6, 4, 9 },
+            new[] { 5, 7, 3, 1, 6, 9, 4 },
+            new[] { 5, 7, 3, 1, 9, 6, 4 },
+            new[] { 5, 7, 3, 1, 9, 4, 6 },
+            new[] { 5, 7, 3, 4, 1, 6, 9 },
+            new[] { 5, 7, 3, 4, 1, 9, 6 },
+            new[] { 5, 7, 3, 4, 6, 1, 9 },
+            new[] { 5, 7, 3, 4, 6, 9, 1 },
+            new[] { 5, 7, 3, 4, 9, 6, 1 },
+            new[] { 5, 7, 3, 4, 9, 1, 6 },
+            new[] { 5, 7, 3, 6, 1, 4, 9 },
+            new[] { 5, 7, 3, 6, 1, 9, 4 },
+            new[] { 5, 7, 3, 6, 4, 1, 9 },
+            new[] { 5, 7, 3, 6, 4, 9, 1 },
+            new[] { 5, 7, 3, 6, 9, 4, 1 },
+            new[] { 5, 7, 3, 6, 9, 1, 4 },
+            new[] { 5, 7, 3, 9, 1, 4, 6 },
+            new[] { 5, 7, 3, 9, 1, 6, 4 },
+            new[] { 5, 7, 3, 9, 4, 1, 6 },
+            new[] { 5, 7, 3, 9, 4, 6, 1 },
+            new[] { 5, 7, 3, 9, 6, 4, 1 },
+            new[] { 5, 7, 3, 9, 6, 1, 4 },
+            new[] { 5, 7, 4, 1, 3, 6, 9 },
+            new[] { 5, 7, 4, 1, 3, 9, 6 },
+            new[] { 5, 7, 4, 1, 6, 3, 9 },
+            new[] { 5, 7, 4, 1, 6, 9, 3 },
+            new[] { 5, 7, 4, 1, 9, 6, 3 },
+            new[] { 5, 7, 4, 1, 9, 3, 6 },
+            new[] { 5, 7, 4, 3, 1, 6, 9 },
+            new[] { 5, 7, 4, 3, 1, 9, 6 },
+            new[] { 5, 7, 4, 3, 6, 1, 9 },
+            new[] { 5, 7, 4, 3, 6, 9, 1 },
+            new[] { 5, 7, 4, 3, 9, 6, 1 },
+            new[] { 5, 7, 4, 3, 9, 1, 6 },
+            new[] { 5, 7, 4, 6, 1, 3, 9 },
+            new[] { 5, 7, 4, 6, 1, 9, 3 },
+            new[] { 5, 7, 4, 6, 3, 1, 9 },
+            new[] { 5, 7, 4, 6, 3, 9, 1 },
+            new[] { 5, 7, 4, 6, 9, 3, 1 },
+            new[] { 5, 7, 4, 6, 9, 1, 3 },
+            new[] { 5, 7, 4, 9, 1, 3, 6 },
+            new[] { 5, 7, 4, 9, 1, 6, 3 },
+            new[] { 5, 7, 4, 9, 3, 1, 6 },
+            new[] { 5, 7, 4, 9, 3, 6, 1 },
+            new[] { 5, 7, 4, 9, 6, 3, 1 },
+            new[] { 5, 7, 4, 9, 6, 1, 3 }
+        };
+
+        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
     }
 }
