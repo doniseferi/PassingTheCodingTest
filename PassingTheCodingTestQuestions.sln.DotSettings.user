@@ -1,27 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/edonisseferi/Library/Caches/JetBrains/Rider2023.1/resharper-host/temp/Rider/vAny/CoverageData/_PassingTheCodingTestQuestions.754599555/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=26ddd779_002Dfb24_002D4a49_002Da35b_002Deb64bdba5647/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test_BST_Sequences_4_Node_Complex_Tree" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=498139e9_002D5034_002D47e4_002D96df_002D32013e71fb5b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test_BST_Sequence_7_Node_Balanced_Complex_Tree" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/edonisseferi/Repos/PassingTheCodingTest/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8468fcc9_002D7ad6_002D4022_002Dab1b_002D3fdb4ded9bc5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test_BST_Sequences_4_Node_Complex_Tree #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a3df4ffe_002Dab7a_002D4e72_002D9c09_002D864844e46dad/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test2 #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest.Test2&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e771f5_002D198a_002D412b_002Da6f7_002D031b756b393a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Test2 #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.NodeTest&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.FirstCommonAncestoryTests&lt;/TestId&gt;
-    &lt;TestId&gt;NUnit3x::42D635FB-1523-4DF7-AB93-BA62A07FA985::net7.0::TestProject1.BSTSequencesTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	</wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=baf3e3e2_002De917_002D49e5_002D858f_002Dde0d467d6ce5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;Namespace&gt;TestProject1&lt;/Namespace&gt;
+    &lt;Project Location="/Users/edonisseferi/Repos/PassingTheCodingTest/TestProject1" Presentation="&amp;lt;TestProject1&amp;gt;" /&gt;
+  &lt;/And&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

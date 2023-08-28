@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using PassingTheCodingTestQuestions;
 
 namespace TestProject1;
@@ -15,7 +16,8 @@ public class BSTSequencesTests
             new List<int> { 1 }
         };
 
-        Assert.AreEqual(expectedSequences, node.GetAllBstSequences());
+        var result = node.GetAllBstSequences();
+        Assert.AreEqual(expectedSequences, result);
     }
 
     [Test]
@@ -31,7 +33,8 @@ public class BSTSequencesTests
             new List<int> { 2, 3, 1 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
+        var result = node.GetAllBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, result);
     }
 
     [Test]
@@ -46,7 +49,8 @@ public class BSTSequencesTests
             new List<int> { 1, 2, 3 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
+        var result = node.GetAllBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, result);
     }
 
     [Test]
@@ -61,7 +65,8 @@ public class BSTSequencesTests
             new List<int> { 3, 2, 1 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
+        var result = node.GetAllBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, result);
     }
 
     [Test]
@@ -78,12 +83,21 @@ public class BSTSequencesTests
             new List<int> { 2, 3, 1, 4 },
             new List<int> { 2, 3, 4, 1 }
         };
-        
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
+
+        var result
+            = node.GetAllBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, result);
     }
 
+    /*
+         5
+       /   \
+    3       7
+   / \     / \
+ 1   4    6   9
+*/
     [Test]
-    public void Test_BST_Sequence_7_Node_Balanced_Compltex_Tree()
+    public void Test_BST_Sequence_7_Node_Balanced_Complex_Tree()
     {
         var node = new Node(5);
         node.Add(3);
@@ -95,80 +109,113 @@ public class BSTSequencesTests
 
         var expectedSequences = new[]
         {
-            new[] { 5, 3, 7, 1, 4, 6, 9 },
-            new[] { 5, 3, 7, 1, 4, 9, 6 },
-            new[] { 5, 3, 7, 1, 6, 4, 9 },
-            new[] { 5, 3, 7, 1, 6, 9, 4 },
-            new[] { 5, 3, 7, 1, 9, 6, 4 },
-            new[] { 5, 3, 7, 1, 9, 4, 6 },
-            new[] { 5, 3, 7, 4, 1, 6, 9 },
-            new[] { 5, 3, 7, 4, 1, 9, 6 },
-            new[] { 5, 3, 7, 4, 6, 1, 9 },
-            new[] { 5, 3, 7, 4, 6, 9, 1 },
-            new[] { 5, 3, 7, 4, 9, 6, 1 },
-            new[] { 5, 3, 7, 4, 9, 1, 6 },
-            new[] { 5, 3, 7, 6, 1, 4, 9 },
-            new[] { 5, 3, 7, 6, 1, 9, 4 },
-            new[] { 5, 3, 7, 6, 4, 1, 9 },
-            new[] { 5, 3, 7, 6, 4, 9, 1 },
-            new[] { 5, 3, 7, 6, 9, 4, 1 },
-            new[] { 5, 3, 7, 6, 9, 1, 4 },
-            new[] { 5, 3, 7, 9, 1, 4, 6 },
-            new[] { 5, 3, 7, 9, 1, 6, 4 },
-            new[] { 5, 3, 7, 9, 4, 1, 6 },
-            new[] { 5, 3, 7, 9, 4, 6, 1 },
-            new[] { 5, 3, 7, 9, 6, 4, 1 },
-            new[] { 5, 3, 7, 9, 6, 1, 4 },
-            new[] { 5, 7, 3, 1, 4, 6, 9 },
-            new[] { 5, 7, 3, 1, 4, 9, 6 },
-            new[] { 5, 7, 3, 1, 6, 4, 9 },
-            new[] { 5, 7, 3, 1, 6, 9, 4 },
-            new[] { 5, 7, 3, 1, 9, 6, 4 },
-            new[] { 5, 7, 3, 1, 9, 4, 6 },
-            new[] { 5, 7, 3, 4, 1, 6, 9 },
-            new[] { 5, 7, 3, 4, 1, 9, 6 },
-            new[] { 5, 7, 3, 4, 6, 1, 9 },
-            new[] { 5, 7, 3, 4, 6, 9, 1 },
-            new[] { 5, 7, 3, 4, 9, 6, 1 },
-            new[] { 5, 7, 3, 4, 9, 1, 6 },
-            new[] { 5, 7, 3, 6, 1, 4, 9 },
-            new[] { 5, 7, 3, 6, 1, 9, 4 },
-            new[] { 5, 7, 3, 6, 4, 1, 9 },
-            new[] { 5, 7, 3, 6, 4, 9, 1 },
-            new[] { 5, 7, 3, 6, 9, 4, 1 },
-            new[] { 5, 7, 3, 6, 9, 1, 4 },
-            new[] { 5, 7, 3, 9, 1, 4, 6 },
-            new[] { 5, 7, 3, 9, 1, 6, 4 },
-            new[] { 5, 7, 3, 9, 4, 1, 6 },
-            new[] { 5, 7, 3, 9, 4, 6, 1 },
-            new[] { 5, 7, 3, 9, 6, 4, 1 },
-            new[] { 5, 7, 3, 9, 6, 1, 4 },
-            new[] { 5, 7, 4, 1, 3, 6, 9 },
-            new[] { 5, 7, 4, 1, 3, 9, 6 },
-            new[] { 5, 7, 4, 1, 6, 3, 9 },
-            new[] { 5, 7, 4, 1, 6, 9, 3 },
-            new[] { 5, 7, 4, 1, 9, 6, 3 },
-            new[] { 5, 7, 4, 1, 9, 3, 6 },
-            new[] { 5, 7, 4, 3, 1, 6, 9 },
-            new[] { 5, 7, 4, 3, 1, 9, 6 },
-            new[] { 5, 7, 4, 3, 6, 1, 9 },
-            new[] { 5, 7, 4, 3, 6, 9, 1 },
-            new[] { 5, 7, 4, 3, 9, 6, 1 },
-            new[] { 5, 7, 4, 3, 9, 1, 6 },
-            new[] { 5, 7, 4, 6, 1, 3, 9 },
-            new[] { 5, 7, 4, 6, 1, 9, 3 },
-            new[] { 5, 7, 4, 6, 3, 1, 9 },
-            new[] { 5, 7, 4, 6, 3, 9, 1 },
-            new[] { 5, 7, 4, 6, 9, 3, 1 },
-            new[] { 5, 7, 4, 6, 9, 1, 3 },
-            new[] { 5, 7, 4, 9, 1, 3, 6 },
-            new[] { 5, 7, 4, 9, 1, 6, 3 },
-            new[] { 5, 7, 4, 9, 3, 1, 6 },
-            new[] { 5, 7, 4, 9, 3, 6, 1 },
-            new[] { 5, 7, 4, 9, 6, 3, 1 },
-            new[] { 5, 7, 4, 9, 6, 1, 3 }
+            new int[] { 5, 3, 1, 4, 7, 6, 9 },
+            new int[] { 5, 3, 1, 7, 4, 6, 9 },
+            new int[] { 5, 3, 1, 7, 6, 4, 9 },
+            new int[] { 5, 3, 1, 7, 6, 9, 4 },
+            new int[] { 5, 3, 7, 1, 4, 6, 9 },
+            new int[] { 5, 3, 7, 1, 6, 4, 9 },
+            new int[] { 5, 3, 7, 1, 6, 9, 4 },
+            new int[] { 5, 3, 7, 6, 1, 4, 9 },
+            new int[] { 5, 3, 7, 6, 1, 9, 4 },
+            new int[] { 5, 3, 7, 6, 9, 1, 4 },
+            new int[] { 5, 7, 3, 1, 4, 6, 9 },
+            new int[] { 5, 7, 3, 1, 6, 4, 9 },
+            new int[] { 5, 7, 3, 1, 6, 9, 4 },
+            new int[] { 5, 7, 3, 6, 1, 4, 9 },
+            new int[] { 5, 7, 3, 6, 1, 9, 4 },
+            new int[] { 5, 7, 3, 6, 9, 1, 4 },
+            new int[] { 5, 7, 6, 3, 1, 4, 9 },
+            new int[] { 5, 7, 6, 3, 1, 9, 4 },
+            new int[] { 5, 7, 6, 3, 9, 1, 4 },
+            new int[] { 5, 7, 6, 9, 3, 1, 4 },
+            new int[] { 5, 3, 4, 1, 7, 6, 9 },
+            new int[] { 5, 3, 4, 7, 1, 6, 9 },
+            new int[] { 5, 3, 4, 7, 6, 1, 9 },
+            new int[] { 5, 3, 4, 7, 6, 9, 1 },
+            new int[] { 5, 3, 7, 4, 1, 6, 9 },
+            new int[] { 5, 3, 7, 4, 6, 1, 9 },
+            new int[] { 5, 3, 7, 4, 6, 9, 1 },
+            new int[] { 5, 3, 7, 6, 4, 1, 9 },
+            new int[] { 5, 3, 7, 6, 4, 9, 1 },
+            new int[] { 5, 3, 7, 6, 9, 4, 1 },
+            new int[] { 5, 7, 3, 4, 1, 6, 9 },
+            new int[] { 5, 7, 3, 4, 6, 1, 9 },
+            new int[] { 5, 7, 3, 4, 6, 9, 1 },
+            new int[] { 5, 7, 3, 6, 4, 1, 9 },
+            new int[] { 5, 7, 3, 6, 4, 9, 1 },
+            new int[] { 5, 7, 3, 6, 9, 4, 1 },
+            new int[] { 5, 7, 6, 3, 4, 1, 9 },
+            new int[] { 5, 7, 6, 3, 4, 9, 1 },
+            new int[] { 5, 7, 6, 3, 9, 4, 1 },
+            new int[] { 5, 7, 6, 9, 3, 4, 1 },
+            new int[] { 5, 3, 1, 4, 7, 9, 6 },
+            new int[] { 5, 3, 1, 7, 4, 9, 6 },
+            new int[] { 5, 3, 1, 7, 9, 4, 6 },
+            new int[] { 5, 3, 1, 7, 9, 6, 4 },
+            new int[] { 5, 3, 7, 1, 4, 9, 6 },
+            new int[] { 5, 3, 7, 1, 9, 4, 6 },
+            new int[] { 5, 3, 7, 1, 9, 6, 4 },
+            new int[] { 5, 3, 7, 9, 1, 4, 6 },
+            new int[] { 5, 3, 7, 9, 1, 6, 4 },
+            new int[] { 5, 3, 7, 9, 6, 1, 4 },
+            new int[] { 5, 7, 3, 1, 4, 9, 6 },
+            new int[] { 5, 7, 3, 1, 9, 4, 6 },
+            new int[] { 5, 7, 3, 1, 9, 6, 4 },
+            new int[] { 5, 7, 3, 9, 1, 4, 6 },
+            new int[] { 5, 7, 3, 9, 1, 6, 4 },
+            new int[] { 5, 7, 3, 9, 6, 1, 4 },
+            new int[] { 5, 7, 9, 3, 1, 4, 6 },
+            new int[] { 5, 7, 9, 3, 1, 6, 4 },
+            new int[] { 5, 7, 9, 3, 6, 1, 4 },
+            new int[] { 5, 7, 9, 6, 3, 1, 4 },
+            new int[] { 5, 3, 4, 1, 7, 9, 6 },
+            new int[] { 5, 3, 4, 7, 1, 9, 6 },
+            new int[] { 5, 3, 4, 7, 9, 1, 6 },
+            new int[] { 5, 3, 4, 7, 9, 6, 1 },
+            new int[] { 5, 3, 7, 4, 1, 9, 6 },
+            new int[] { 5, 3, 7, 4, 9, 1, 6 },
+            new int[] { 5, 3, 7, 4, 9, 6, 1 },
+            new int[] { 5, 3, 7, 9, 4, 1, 6 },
+            new int[] { 5, 3, 7, 9, 4, 6, 1 },
+            new int[] { 5, 3, 7, 9, 6, 4, 1 },
+            new int[] { 5, 7, 3, 4, 1, 9, 6 },
+            new int[] { 5, 7, 3, 4, 9, 1, 6 },
+            new int[] { 5, 7, 3, 4, 9, 6, 1 },
+            new int[] { 5, 7, 3, 9, 4, 1, 6 },
+            new int[] { 5, 7, 3, 9, 4, 6, 1 },
+            new int[] { 5, 7, 3, 9, 6, 4, 1 },
+            new int[] { 5, 7, 9, 3, 4, 1, 6 },
+            new int[] { 5, 7, 9, 3, 4, 6, 1 },
+            new int[] { 5, 7, 9, 3, 6, 4, 1 },
+            new int[] { 5, 7, 9, 6, 3, 4, 1 }
         };
 
-        CollectionAssert.AreEquivalent(expectedSequences, node.GetAllBstSequences());
+        var result = node.GetAllBstSequences();
+        CollectionAssert.AreEquivalent(result, expectedSequences);
+    }
+
+    public List<List<int>> AContainsB(List<List<int>> a, List<List<int>> b)
+    {
+        var accum = new List<List<int>>();
+        foreach (var sequenceB in b)
+        {
+            bool found = false;
+            foreach (var sequenceA in a)
+            {
+                if (sequenceA.SequenceEqual(sequenceB))
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                accum.Add(sequenceB);
+            }
+        }
+
+        return accum;
     }
 }
