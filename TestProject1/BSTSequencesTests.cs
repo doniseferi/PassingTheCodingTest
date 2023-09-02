@@ -109,6 +109,7 @@ public class BSTSequencesTests
 
         var expectedSequences = new[]
         {
+            
             new int[] { 5, 3, 1, 4, 7, 6, 9 },
             new int[] { 5, 3, 1, 7, 4, 6, 9 },
             new int[] { 5, 3, 1, 7, 6, 4, 9 },

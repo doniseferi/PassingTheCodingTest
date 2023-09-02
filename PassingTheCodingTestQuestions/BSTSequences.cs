@@ -67,7 +67,7 @@ internal static class BstSequences
     /*
      * this is horrific, convert to an expressive recursive method but for the time being function is better than no function
      */
-    public static void Stitch(LinkedList<int> b, LinkedList<int> c, LinkedList<int> prefix, List<List<int>> Accum)
+    private static void Stitch(LinkedList<int> b, LinkedList<int> c, LinkedList<int> prefix, List<List<int>> Accum)
     {
         if (b.Count != 0 && (c.Count == 0 && b.Count != 0) || (c.Count != 0 && b.Count == 0))
         {
