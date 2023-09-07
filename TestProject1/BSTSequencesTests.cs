@@ -195,28 +195,4 @@ public class BSTSequencesTests
         var result = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(result, expectedSequences);
     }
-
-    public List<List<int>> AContainsB(List<List<int>> a, List<List<int>> b)
-    {
-        var accum = new List<List<int>>();
-        foreach (var sequenceB in b)
-        {
-            bool found = false;
-            foreach (var sequenceA in a)
-            {
-                if (sequenceA.SequenceEqual(sequenceB))
-                {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found)
-            {
-                accum.Add(sequenceB);
-            }
-        }
-
-        return accum;
-    }
 }
