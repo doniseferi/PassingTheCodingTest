@@ -46,4 +46,48 @@ public static class IntExtensions
         
         return accum;
     }
+
+    public static int[] InjectToLeftOf(this int[] source, int targetValue, int valueToInject)
+    {
+        if (source.Length() == 0)
+            throw new ArgumentException();
+
+        var accum = new int[source.Length() + 1];
+        var indexToInjectValue = GetIndexOfTargetValue();
+        
+        if (indexToInjectValue == 0)
+            return source;
+
+        for (var i = 0; i < source.Length; i++)
+        {
+            if (i < indexToInjectValue)
+            {
+                accum[i] = source[i];
+            }
+            else if (i == indexToInjectValue)
+            {
+                accum[i] = valueToInject;
+                accum[i + 1] = source[i];
+            }
+            else
+            {
+                accum[i + 1] = source[i];
+            }
+        }
+
+        return accum;
+
+        int GetIndexOfTargetValue()
+        {
+            for (var i = 0; i < source.Length(); i++)
+            {
+                if (source[i] == targetValue)
+                {
+                    return i;
+                }
+            }
+            
+            throw new ArgumentException();
+        }
+    }
 }

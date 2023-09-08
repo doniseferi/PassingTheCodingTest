@@ -107,4 +107,64 @@ public class ExtensionTests
         Option<int> result = 1.GetImmediateRightMember(arr);
         Assert.IsFalse(result.IsSome);
     }
+    
+    [Test]
+    public void InjectToLeftOf_WithMultipleValuesPresent_InsertsAtFirstOccurrence()
+    {
+        int[] originalArray = new int[] { 4, 5, 7, 5 };
+        int[] expectedArray = new int[] { 4, 8, 5, 7, 5 };
+
+        int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
+
+        Assert.IsTrue(updatedArray.SequenceEqual(expectedArray));
+    }
+
+    [Test]
+    public void InjectToLeftOf_WithValueNotPresent_ThrowsException()
+    {
+        int[] originalArray = new int[] { 4, 7, 9 };
+
+        Assert.Throws<ArgumentException>(() => originalArray.InjectToLeftOf(5, 8));
+    }
+    
+    [Test]
+    public void InjectToLeftOf_OnEmptyArray_ThrowsException()
+    {
+        int[] emptyArray = new int[] { };
+
+        Assert.Throws<ArgumentException>(() => emptyArray.InjectToLeftOf(5, 8));
+    }
+    
+    [Test]
+    public void InjectToLeftOf_WithTargetValueAtFirstIndex_ReturnsUnmodifiedArray()
+    {
+        int[] originalArray = new int[] { 5, 4, 7 };
+        int[] expectedArray = new int[] { 5, 4, 7 };
+
+        int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
+
+        Assert.IsTrue(updatedArray.SequenceEqual(expectedArray));
+    }
+
+    [Test]
+    public void InjectToLeftOf_WithTargetValueNotAtFirstIndex_InsertsCorrectly()
+    {
+        int[] originalArray = new int[] { 4, 5, 7 };
+        int[] expectedArray = new int[] { 4, 8, 5, 7 };
+
+        int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
+
+        Assert.IsTrue(updatedArray.SequenceEqual(expectedArray));
+    }
+
+    [Test]
+    public void InjectToLeftOf_WithTargetValueAtLastIndex_InsertsCorrectly()
+    {
+        int[] originalArray = new int[] { 4, 7, 5 };
+        int[] expectedArray = new int[] { 4, 7, 8, 5 };
+
+        int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
+
+        Assert.IsTrue(updatedArray.SequenceEqual(expectedArray));
+    }
 }
