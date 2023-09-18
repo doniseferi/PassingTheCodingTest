@@ -88,13 +88,13 @@ public class BSTSequencesTests
             = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(expectedSequences, result);
     }
-
-    /*
+/*
          5
        /   \
     3       7
    / \     / \
  1   4    6   9
+
 */
     [Test]
     public void Test_BST_Sequence_7_Node_Balanced_Complex_Tree()
@@ -109,7 +109,6 @@ public class BSTSequencesTests
 
         var expectedSequences = new[]
         {
-            
             new int[] { 5, 3, 1, 4, 7, 6, 9 },
             new int[] { 5, 3, 1, 7, 4, 6, 9 },
             new int[] { 5, 3, 1, 7, 6, 4, 9 },
@@ -194,5 +193,15 @@ public class BSTSequencesTests
 
         var result = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(result, expectedSequences);
+        
+        var resultIterative = node.GetAllPossibleBstSequences();
+        
+        var expectedStr = expectedSequences.Select(seq => string.Join(",", seq)).ToList();
+        var resultStr = resultIterative.Select(seq => string.Join(",", seq)).ToList();
+        var distinctResultIterative = resultIterative.Distinct(new SequenceEqualityComparer()).ToList();
+        var n = distinctResultIterative.Select(x => string.Join(",", x)).ToList();
+        var missingSequences = expectedStr.Except(n).ToList();
+
+        Assert.That(expectedStr, Is.SubsetOf(resultStr));
     }
 }

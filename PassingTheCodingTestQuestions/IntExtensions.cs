@@ -56,7 +56,7 @@ public static class IntExtensions
         var indexToInjectValue = GetIndexOfTargetValue();
         
         if (indexToInjectValue == 0)
-            return source;
+            return Array.Empty<int>();
 
         for (var i = 0; i < source.Length; i++)
         {
@@ -89,5 +89,37 @@ public static class IntExtensions
             
             throw new ArgumentException();
         }
+    }
+
+    public static int[] LeftElementsOf(this int[] arr, int subject)
+    {
+        if (arr.Length() == 0)
+            return arr;
+
+        var accum = new List<int>();
+        foreach (var item in arr)
+        {
+            if (item == subject)
+                return accum.ToArray();
+            
+            accum.Add(item);
+        }
+
+        throw new ArgumentException($"{subject} is not in the array.");
+    }
+
+    public static int[] Except(this int[] arr, int value)
+    {
+        if (arr.Length == 0)
+            return arr;
+
+        var accum = new List<int>();
+        foreach (var item in arr)
+        {
+            if (item != value)
+                accum.Add(item);
+        }
+
+        return accum.ToArray();
     }
 }

@@ -41,7 +41,7 @@ public class ExtensionTests
         Assert.Throws<IndexOutOfRangeException>(() => arr.Inject(4, -1));
     }
 
-    [Test] 
+    [Test]
     public void TestInvalidIndexGreaterThanLength()
     {
         int[] arr = { 1, 2, 3 };
@@ -56,7 +56,7 @@ public class ExtensionTests
         int[] result = arr.Inject(1, 0);
         CollectionAssert.AreEqual(expected, result);
     }
-    
+
     [Test]
     public void TestGetImmediateRightMemberMiddle()
     {
@@ -65,7 +65,7 @@ public class ExtensionTests
         Assert.IsTrue(result.IsSome);
         result.Match(None: () => Assert.Fail(), Some: i => Assert.That(i, Is.EqualTo(3)));
     }
-    
+
     [Test]
     public void TestGetImmediateRightMemberFirst()
     {
@@ -74,7 +74,7 @@ public class ExtensionTests
         Assert.IsTrue(result.IsSome);
         result.Match(None: () => Assert.Fail(), Some: i => Assert.That(i, Is.EqualTo(2)));
     }
-    
+
     [Test]
     public void TestGetImmediateRightMemberBeforeLast()
     {
@@ -107,7 +107,7 @@ public class ExtensionTests
         Option<int> result = 1.GetImmediateRightMember(arr);
         Assert.IsFalse(result.IsSome);
     }
-    
+
     [Test]
     public void InjectToLeftOf_WithMultipleValuesPresent_InsertsAtFirstOccurrence()
     {
@@ -126,7 +126,7 @@ public class ExtensionTests
 
         Assert.Throws<ArgumentException>(() => originalArray.InjectToLeftOf(5, 8));
     }
-    
+
     [Test]
     public void InjectToLeftOf_OnEmptyArray_ThrowsException()
     {
@@ -134,12 +134,12 @@ public class ExtensionTests
 
         Assert.Throws<ArgumentException>(() => emptyArray.InjectToLeftOf(5, 8));
     }
-    
+
     [Test]
-    public void InjectToLeftOf_WithTargetValueAtFirstIndex_ReturnsUnmodifiedArray()
+    public void InjectToLeftOf_WithTargetValueAtFirstIndex_ReturnsAnEmptyArray()
     {
         int[] originalArray = new int[] { 5, 4, 7 };
-        int[] expectedArray = new int[] { 5, 4, 7 };
+        int[] expectedArray = new int[] { };
 
         int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
 
@@ -166,5 +166,107 @@ public class ExtensionTests
         int[] updatedArray = originalArray.InjectToLeftOf(5, 8);
 
         Assert.IsTrue(updatedArray.SequenceEqual(expectedArray));
+    }
+
+    [TestFixture]
+    public class IntArrayExtensionsTests
+    {
+        [Test]
+        public void LeftElementsOf_SubjectInMiddle_ReturnsCorrectElements()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+            int[] expected = { 1, 2, 3 };
+            int[] result = array.LeftElementsOf(4);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void LeftElementsOf_SubjectAtStart_ReturnsEmptyArray()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+            int[] expected = { };
+            int[] result = array.LeftElementsOf(1);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void LeftElementsOf_SubjectNotInArray_ReturnsEmptyArray()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+
+            Assert.Throws<ArgumentException>(() => array.LeftElementsOf(6));
+        }
+
+        [Test]
+        public void LeftElementsOf_EmptyArray_ReturnsEmptyArray()
+        {
+            int[] array = { };
+            int[] expected = { };
+            int[] result = array.LeftElementsOf(1);
+
+            Assert.AreEqual(expected, result);
+        }
+    }
+    
+    [Test]
+    public void Except_ValueExists_ReturnsArrayWithoutValue()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        int[] expected = { 1, 3, 4 };
+        int[] result = array.Except(2);
+
+        Assert.AreEqual(expected, result);
+    }
+
+    [Test]
+    public void Except_ValueDoesNotExist_ReturnsSameArray()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        int[] expected = { 1, 2, 3, 4 };
+        int[] result = array.Except(5);
+
+        Assert.AreEqual(expected, result);
+    }
+
+    [Test]
+    public void Except_ArrayHasMultipleInstances_ReturnsArrayWithoutAnyInstances()
+    {
+        int[] array = { 1, 2, 2, 3, 4, 2 };
+        int[] expected = { 1, 3, 4 };
+        int[] result = array.Except(2);
+
+        Assert.AreEqual(expected, result);
+    }
+
+    [Test]
+    public void Except_EmptyArray_ReturnsEmptyArray()
+    {
+        int[] array = { };
+        int[] expected = { };
+        int[] result = array.Except(1);
+
+        Assert.AreEqual(expected, result);
+    }
+
+    [Test]
+    public void Except_ValueIsLastElement_ReturnsArrayWithoutLastElement()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        int[] expected = { 1, 2, 3 };
+        int[] result = array.Except(4);
+
+        Assert.AreEqual(expected, result);
+    }
+
+    [Test]
+    public void Except_ValueIsFirstElement_ReturnsArrayWithoutFirstElement()
+    {
+        int[] array = { 1, 2, 3, 4 };
+        int[] expected = { 2, 3, 4 };
+        int[] result = array.Except(1);
+
+        Assert.AreEqual(expected, result);
     }
 }
