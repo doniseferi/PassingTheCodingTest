@@ -6,7 +6,7 @@ namespace TestProject1;
 public class SubtreeTests
 {
     [Test]
-    public void Test_ContainsSubtree_PositiveCase()
+    public void Test_ContainsSubtree_SimplePositiveCase()
     {
         // Arrange
         Node T1 = new Node(10);
@@ -15,6 +15,38 @@ public class SubtreeTests
 
         Node T2 = new Node(5);
         
+        // Act
+        bool result = T1.ContainsSubtree(T2);
+        
+        // Assert
+        Assert.IsTrue(result);
+    }
+    
+    [Test]
+    public void Test_ContainsSubtree_ComplexPositiveCase()
+    {
+        // Arrange
+        Node T1 = new Node(10);
+        T1.Add(6);
+        T1.Add(15);
+        T1.Add(3);
+        T1.Add(8);
+        T1.Add(5);
+        T1.Add(9);
+        T1.Add(7);
+        T1.Add(1);
+        T1.Add(13);
+        T1.Add(11);
+        T1.Add(14);
+        T1.Add(20);
+        T1.Add(18);
+        T1.Add(22);
+        
+        Node T2 = new Node(15);
+        T2.Add(13);
+        T2.Add(20);
+        T2.Add(18);
+
         // Act
         bool result = T1.ContainsSubtree(T2);
         

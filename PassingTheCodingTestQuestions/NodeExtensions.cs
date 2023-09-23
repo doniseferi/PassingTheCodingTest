@@ -6,12 +6,18 @@ internal static class NodeExtensions
 {
     public static bool ContainsSubtree(this Node node, Node subtree)
     {
+        if (node == null)
+            throw new ArgumentNullException(nameof(node));
+
+        if (subtree == null)
+            throw new ArgumentNullException(nameof(subtree));
+        
         return node
             .Find(subtree.Value)
             .Match(
-                None: ()=> false,
-                Some: subtreeRoot => CanWalkTogether(subtree)
-                )
+                None: () => false,
+                Some: subtreeRoot => CanWalkTogether(subtree, subtreeRoot)
+            );
     }
 
     private static bool CanWalkTogether(Node subtree, Node b)
@@ -26,7 +32,20 @@ internal static class NodeExtensions
                 Some: s =>
                 b.Left.Match(None: () => false,
                     Some: r => CanWalkTogether(s, r)));
+
+        if (!allLefts)
+            return false;
         
+        var allRights = subtree
+            .Right
+            .Match(
+                None: () => true,
+                Some: s =>
+                    b.Right.Match(None: () => false,
+                        Some: r => CanWalkTogether(s, r)));
+
+        return allRights;
+
     }
 
     private static Option<Node> Find(this Node node, int value)
@@ -42,7 +61,7 @@ internal static class NodeExtensions
                     Some: r => r.Find(value))
         :
              node
-                .Right
+                .Left
                 .Match(
                     None: () => Option<Node>.None, 
                     Some: l => l.Find(value));
