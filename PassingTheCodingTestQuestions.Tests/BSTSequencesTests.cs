@@ -18,6 +18,8 @@ public class BSTSequencesTests
 
         var result = node.GetAllBstSequences();
         Assert.AreEqual(expectedSequences, result);
+        var resultIterative = node.GetAllPossibleBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, resultIterative);
     }
 
     [Test]
@@ -35,6 +37,9 @@ public class BSTSequencesTests
 
         var result = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(expectedSequences, result);
+        
+        var resultIterative = node.GetAllPossibleBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, resultIterative);
     }
 
     [Test]
@@ -51,6 +56,8 @@ public class BSTSequencesTests
 
         var result = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(expectedSequences, result);
+        var resultIterative = node.GetAllPossibleBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, resultIterative);
     }
 
     [Test]
@@ -67,6 +74,8 @@ public class BSTSequencesTests
 
         var result = node.GetAllBstSequences();
         CollectionAssert.AreEquivalent(expectedSequences, result);
+        var resultIterative = node.GetAllPossibleBstSequences();
+        CollectionAssert.AreEquivalent(expectedSequences, resultIterative);
     }
 
     [Test]
@@ -94,7 +103,6 @@ public class BSTSequencesTests
     3       7
    / \     / \
  1   4    6   9
-
 */
     [Test]
     public void Test_BST_Sequence_7_Node_Balanced_Complex_Tree()
@@ -192,16 +200,9 @@ public class BSTSequencesTests
         };
 
         var result = node.GetAllBstSequences();
-        CollectionAssert.AreEquivalent(result, expectedSequences);
-        
+        CollectionAssert.AreEquivalent(expectedSequences, result);
         var resultIterative = node.GetAllPossibleBstSequences();
-        
-        var expectedStr = expectedSequences.Select(seq => string.Join(",", seq)).ToList();
-        var resultStr = resultIterative.Select(seq => string.Join(",", seq)).ToList();
-        var distinctResultIterative = resultIterative.Distinct(new SequenceEqualityComparer()).ToList();
-        var n = distinctResultIterative.Select(x => string.Join(",", x)).ToList();
-        var missingSequences = expectedStr.Except(n).ToList();
+        CollectionAssert.AreEquivalent(expectedSequences, resultIterative);
 
-        Assert.That(expectedStr, Is.SubsetOf(resultStr));
     }
 }

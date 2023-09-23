@@ -1,20 +1,5 @@
 namespace PassingTheCodingTestQuestions;
 
-public class SequenceEqualityComparer : IEqualityComparer<int[]>
-{
-    public bool Equals(int[] x, int[] y)
-    {
-        return Enumerable.SequenceEqual(x, y);
-    }
-
-    public int GetHashCode(int[] obj)
-    {
-        // This is a simple method to get a hash code. Depending on the size of sequences 
-        // and the specific data, there might be more efficient ways.
-        return obj.Sum().GetHashCode();
-    }
-}
-
 internal static class BstSequenceIterative
 {
     public static int[][] GetAllPossibleBstSequences(this Node node)
@@ -24,35 +9,27 @@ internal static class BstSequenceIterative
 
         var left = node.Left;
         var right = node.Right;
-        return left.Match(None: () =>
-        {
-            return right.Match(None: () =>
-            {
-                return new int[][] { new[] { node.Value } };
-            }, Some: sr =>
-            {
-                return node
+        
+        return left.Match(
+            None: () => 
+                right.Match(
+                    None: () => new[] { new[] { node.Value } }, 
+                    Some: sr => 
+                        node
+                            .Value
+                            .AppendTo(
+                                sr.GetAllPossibleBstSequences())),
+            Some: sl => right.Match(
+                None: () => node
                     .Value
                     .AppendTo(
-                        sr.GetAllPossibleBstSequences().Distinct().ToArray()).Distinct().ToArray();
-            });
-        }, Some: sl =>
-        {
-            return right.Match(None: () =>
-            {
-                return node
-                    .Value
-                    .AppendTo(sl.GetAllBstSequences().Distinct().ToArray()).Distinct().ToArray();
-            }, Some: sr =>
-            {
-                return node
-                    .Value
-                    .AppendTo(
-                        Weave(
-                            sl.GetAllPossibleBstSequences().Distinct().ToArray(),
-                            sr.GetAllPossibleBstSequences().Distinct().ToArray())).Distinct().ToArray();
-            });
-        });
+                        sl.GetAllBstSequences()), 
+            Some: sr => node
+                .Value
+                .AppendTo(
+                    Weave(
+                        sl.GetAllPossibleBstSequences(),
+                        sr.GetAllPossibleBstSequences())))); 
     }
 
     private static int[][] AppendTo(this int value, int[][] sequences)
@@ -71,58 +48,77 @@ internal static class BstSequenceIterative
 
     private static int[][] Weave(int[][] leftSequences, int[][] rightSequences)
     {
+        if (leftSequences.Length > 0 && rightSequences.Length == 0)
+            return leftSequences;
+        
+        if (leftSequences.Length == 0 && rightSequences.Length > 0)
+            return rightSequences;
+        
         var accum = new List<int[]>();
         foreach (var leftSequence in leftSequences)
         {
             foreach (var rightSequence in rightSequences)
             {
                 accum.AddRange(
-                    WeaveArr(leftSequence, rightSequence).Distinct().ToArray()
-                        .Concat(
-                            WeaveArr(rightSequence, leftSequence).Distinct().ToArray()));
+                    WeaveArr(leftSequence, rightSequence));
+                
             }
         }
 
-        return accum.Distinct().ToArray();
+        return accum.ToArray();
     }
     
-    public static int[][] WeaveArr(int[] x, int[] y)
+    public static int[][] WeaveArr(int[] left, int[] right)
     {
+        if (left.Length > 0 && right.Length == 0)
+            return new[] { left };
+        
+        if (left.Length == 0 && right.Length > 0)
+            return new[] { right };
+        
         var accum = new Dictionary<int, List<int[]>>();
-        for (var n = x.Length; n != 0; n--)
-        {
-            var subject = x[n - 1];
-            accum[subject] = new List<int[]>();
-            var r = subject.GetImmediateRightMember(x);
-            r.Match(None: () =>
-            {
-                for (var i = y.Length(); i != -1; i--)
-                {
-                    var injectedIntoOtherArray = y.Inject(subject, i);
-                    var leftElements = x.LeftElementsOf(subject);
-                    var weavedElements = leftElements.Concat(injectedIntoOtherArray).ToArray();
-                    accum[subject].Add(weavedElements);
-                }
-            }, Some: sr =>
-            {
-                var immediateRightMembersSequences = accum.ContainsKey(sr)
-                    ? accum[sr]
-                    : throw new KeyNotFoundException($"{sr}");
 
-                foreach (var rightSequence in immediateRightMembersSequences)
+        for (var n = left.Length; n != 0; n--)
+        {
+            var subject = left[n - 1];
+            accum[subject] = new List<int[]>();
+            subject.GetImmediateRightMember(left)
+                .Match(None: () =>
                 {
-                    var candidate = rightSequence.
-                        Except(subject)
-                        .InjectToLeftOf(sr, subject);
-                    
-                    if (candidate.Length > 0)
-                        accum[subject].Add(candidate);
-                }
-            });
+                    for (var i = right.Length(); i != -1; i--)
+                    {
+                        var injectedIntoOtherArray = right.Inject(subject, i);
+                        var leftElements = left.LeftElementsOf(subject);
+                        var weavedElements = leftElements.Concat(injectedIntoOtherArray).ToArray();
+                        accum[subject].Add(weavedElements);
+                    }
+                }, Some: sr =>
+                {
+                    var immediateRightMembersSequences = accum.ContainsKey(sr)
+                        ? accum[sr]
+                        : throw new KeyNotFoundException($"{sr}");
+
+
+                    foreach (var rightSequence in immediateRightMembersSequences)
+
+                    {
+
+                        var indexOfRightMember = Array.IndexOf(rightSequence, sr);
+
+                        var indexOfCurrentNode = Array.IndexOf(rightSequence, subject);
+
+                        for (var i = indexOfCurrentNode + 1; i < indexOfRightMember; i++)
+                        {
+                            var newSequence = rightSequence.Except(subject)
+                                .Inject(subject, i);
+
+                            if (newSequence.Length > 0)
+                                accum[subject].Add(newSequence);
+                        }
+                    }
+                });
         }
 
-        var result = accum.Values.SelectMany(x => x.ToArray()).Distinct().ToArray();
-        return result;
+        return accum.Values.SelectMany(x => x.ToArray()).ToArray();
     }
-        
 }
