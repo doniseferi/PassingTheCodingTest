@@ -8,10 +8,10 @@ internal class Node
 {
     public Node(int value) => Value = value;
 
-    public void SetLeft(Node left) =>
+    private void SetLeft(Node left) =>
         Left = Option<Node>.Some(left ?? throw new ArgumentNullException(nameof(left)));
 
-    public void SetRight(Node right) =>
+    private void SetRight(Node right) =>
         Right = Option<Node>.Some(right ?? throw new ArgumentNullException(nameof(right)));
     
     public int Value { get; }
