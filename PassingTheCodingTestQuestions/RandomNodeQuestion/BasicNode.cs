@@ -9,7 +9,7 @@ internal class BasicNode : IBasicNode
 
     public Option<IBasicNode> Left { get; private set; }
     public Option<IBasicNode> Right { get; private set; }
-    public int Value { get; }
+    public int Value { get; private set; }
 
     public Option<IBasicNode> Find(int value)
     {
@@ -79,6 +79,24 @@ internal class BasicNode : IBasicNode
             Some: l => l.Left.Match(
                 None: () => Option<IBasicNode>.Some(l), 
                 Some: fl => fl.GetLeftMostNode()));
+
+    public void UpdateValue(int value)
+    {
+        Left.Match(None: () => { },
+            Some: l =>
+            {
+                if (l.Value > value)
+                    throw new ArgumentOutOfRangeException("Value cannot be less than left childs value");
+            });
+        Right.Match(None: () => { },
+            Some: r =>
+            {
+                if (r.Value < value)
+                    throw new AggregateException("Value cannot be greater than right childs child");
+            });
+
+        Value = value;
+    }
 
     public void AddChild(int value)
     {

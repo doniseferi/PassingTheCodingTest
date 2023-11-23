@@ -4,6 +4,7 @@ namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
 internal class RandomAndBasicBst : IRandomAndBasicBst
 {
+    private static Action NoOp = () => {};
     private Option<IBasicNode> _root;
 
     public RandomAndBasicBst(IBasicNode root) =>
@@ -17,12 +18,13 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
             Some: root => root.Find(value));
 
     public void Insert(int value) =>
-        _root.Match(None: () => { },
+        _root.Match(None: NoOp,
             Some: root => root.AddChild(value));
 
     public void Delete(int value)
     {
-        _root.Match(None: () => { },
+        var node = _root;
+        node.Match(None: NoOp,
             Some: root =>
             {
                 if (root.Value == value)
@@ -33,19 +35,53 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
                             Some: r => _root = Option<IBasicNode>.Some(r)),
                         Some: l =>
                         {
-                            var pointer = l;
-                            var nextPoint = l.Left;
-                            while (nextPoint.IsSome)
+                            var leftMostChild = l;
+                            var hasSmallerChildren = l.Left;
+                            while (hasSmallerChildren.IsSome)
                             {
-                                nextPoint.Map(x => pointer = x);
-                                nextPoint = nextPoint.Map(x => x.Left)
-                                    .IfNone(() => nextPoint = Option<IBasicNode>.None);
+                                hasSmallerChildren.Map(x => leftMostChild = x);
+                                hasSmallerChildren = hasSmallerChildren.Map(x => x.Left)
+                                    .IfNone(() => hasSmallerChildren = Option<IBasicNode>.None);
                             }
-                            _root = Option<IBasicNode>.Some(pointer);
+                            root.UpdateValue(leftMostChild.Value);
                         });
                 }
                 else
+                {
                     root.DeleteChild(value);
+                }
+            });
+    }
+
+    private void Delete(Option<IBasicNode> node, int valueToDelete)
+    {
+        node.Match(
+            None: NoOp,
+            Some: root =>
+            {
+                if (root.Value == valueToDelete)
+                {
+                    root.Left.Match(
+                        None: () => root.Right.Match(
+                            None: () => _root = Option<IBasicNode>.None,
+                            Some: r => {_root = Option<IBasicNode>.Some(r);}),
+                        Some: l =>
+                        {
+                            var leftMostChild = l;
+                            var hasSmallerChildren = l.Left;
+                            while (hasSmallerChildren.IsSome)
+                            {
+                                hasSmallerChildren.Map(x => leftMostChild = x);
+                                hasSmallerChildren = hasSmallerChildren.Map(x => x.Left)
+                                    .IfNone(() => hasSmallerChildren = Option<IBasicNode>.None);
+                            }
+                            root.UpdateValue(leftMostChild.Value);
+                        });
+                }
+                else
+                {
+                    
+                }
             });
     }
 }

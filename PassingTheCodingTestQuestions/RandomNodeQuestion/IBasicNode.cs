@@ -12,4 +12,5 @@ internal interface IBasicNode
     int Count();
     void DeleteChild(int value);
     Option<IBasicNode> GetLeftMostNode();
+    void UpdateValue(int value);
 }
