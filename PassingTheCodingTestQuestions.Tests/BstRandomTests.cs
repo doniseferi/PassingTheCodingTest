@@ -1,4 +1,6 @@
 using LanguageExt;
+using Newtonsoft.Json;
+using PassingTheCodingTestQuestions.Extensions;
 using PassingTheCodingTestQuestions.RandomNodeQuestion;
 
 namespace TestProject1;
@@ -120,7 +122,66 @@ public class BstRandomTests
     }
 
     [Test]
-    public void Delete_NodeWithInOrderSuccessor_CorrectlyUpdatesTree()
+    public void Delete_NodeWithTwoChildren_ReturnsInOrderSuccessor()
+    {
+        var bst = CreateBstWithTestData();
+        var n2 = JsonConvert.SerializeObject(bst);
+
+        bst.Delete(21);
+        var n = JsonConvert.SerializeObject(bst);
+        Assert.That(bst.Find(21), Is.EqualTo(Option<IBasicNode>.None));
+
+        var root = bst.Root.UnpackUnsafely();
+        var inorderSuccessor = root.Left.UnpackUnsafely();
+        Assert.That(inorderSuccessor.Value, Is.EqualTo(24));
+    }
+    
+    [Test]
+    public void Delete_NodeWithInOrderSuccessor_AndInOrderSuccessorHasChildren_CorrectlyUpdatesInOrderSuccessorWithChild()
+    {
+        var bst = CreateBstWithTestData();
+
+        bst.Delete(21);
+        Assert.That(bst.Find(21), Is.EqualTo(Option<IBasicNode>.None));
+
+        var root = bst.Root.UnpackUnsafely();
+        var inorderSuccessor = root.Left.UnpackUnsafely();
+        Assert.That(inorderSuccessor.Value, Is.EqualTo(24));
+
+        var twentySeven = bst.Find(27).UnpackUnsafely();
+        var leftChildOfTwentySeven = twentySeven.Left.UnpackUnsafely();
+        Assert.That(leftChildOfTwentySeven.Value, Is.EqualTo(26));
+    }
+    
+    [Test]
+    [TestCase(50, 75)]
+    [TestCase(21, 24)]
+    [TestCase(10, 20)]
+    [TestCase(24, 26)]
+    [TestCase(30, 33)]
+    [TestCase(27, 29)]
+    public void GetNextInOrderSuccessor_ReturnsCorrectSuccessor(int startingNode, int expectedSuccessor)
+    {
+        var bst = CreateBstWithTestData();
+        var node = bst.Find(startingNode).UnpackUnsafely();
+        var successor = node
+            .GetNextInOrderSuccessor()
+            .UnpackUnsafely();
+
+        Assert.That(successor.Value, Is.EqualTo(expectedSuccessor));
+    }
+
+    [Test]
+    public void GetNextInOrderSuccessor_WithNoChildren_ReturnsNone()
+    {
+        var bst = CreateBstWithTestData();
+        var node = bst.Find(75).UnpackUnsafely();
+        var successor = node.GetNextInOrderSuccessor();
+
+        Assert.That(successor, Is.EqualTo(Option<IBasicNode>.None));
+    }
+
+    private RandomAndBasicBst CreateBstWithTestData()
     {
         var root = new BasicNode(50);
         root.AddChild(21);
@@ -134,15 +195,6 @@ public class BstRandomTests
         root.AddChild(29);
         root.AddChild(24);
         root.AddChild(26);
-        var bst = new RandomAndBasicBst(root);
-
-        bst.Delete(21);
-
-        Assert.That(bst.Find(21), Is.EqualTo(Option<IBasicNode>.None));
-        Assert.That(bst.Root.Bind(x => x.Left).Map(x => x.Value).IfNone(0), Is.EqualTo(24));
-
-        var twentySeven = bst.Find(27).IfNone(() => throw new Exception());
-        var leftChildOfTwentySeven = twentySeven.Left.IfNone(() => throw new Exception());
-        Assert.That(leftChildOfTwentySeven.Value, Is.EqualTo(26));
+        return new RandomAndBasicBst(root);
     }
 }

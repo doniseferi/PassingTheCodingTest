@@ -43,44 +43,13 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
                                 hasSmallerChildren = hasSmallerChildren.Map(x => x.Left)
                                     .IfNone(() => hasSmallerChildren = Option<IBasicNode>.None);
                             }
-                            root.UpdateValue(leftMostChild.Value);
+                            root.UpdateNode(leftMostChild.Value);
+                            
                         });
                 }
                 else
                 {
                     root.DeleteChild(value);
-                }
-            });
-    }
-
-    private void Delete(Option<IBasicNode> node, int valueToDelete)
-    {
-        node.Match(
-            None: NoOp,
-            Some: root =>
-            {
-                if (root.Value == valueToDelete)
-                {
-                    root.Left.Match(
-                        None: () => root.Right.Match(
-                            None: () => _root = Option<IBasicNode>.None,
-                            Some: r => {_root = Option<IBasicNode>.Some(r);}),
-                        Some: l =>
-                        {
-                            var leftMostChild = l;
-                            var hasSmallerChildren = l.Left;
-                            while (hasSmallerChildren.IsSome)
-                            {
-                                hasSmallerChildren.Map(x => leftMostChild = x);
-                                hasSmallerChildren = hasSmallerChildren.Map(x => x.Left)
-                                    .IfNone(() => hasSmallerChildren = Option<IBasicNode>.None);
-                            }
-                            root.UpdateValue(leftMostChild.Value);
-                        });
-                }
-                else
-                {
-                    
                 }
             });
     }

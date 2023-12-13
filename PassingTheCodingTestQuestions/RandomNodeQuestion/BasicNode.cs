@@ -1,4 +1,5 @@
 using LanguageExt;
+using PassingTheCodingTestQuestions.Extensions;
 
 namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
@@ -34,14 +35,24 @@ internal class BasicNode : IBasicNode
         return countAtCurrentLevel + leftCount + rightCount;
     }
 
+    public void UpdateNode(int successor)
+    {
+        this.Value = successor;
+    }
+
+    public void UpdateNode(IMutableNode successor)
+    {
+        throw new NotImplementedException();
+    }
+
     public void DeleteChild(int value)
     {
         if (Value == value)
             throw new InvalidOperationException("Cannot call delete on node");
         
-        var isGreaterThan = value > Value;
+        var isCurrentNodeSmaller = value > Value;
         
-        var child = isGreaterThan
+        var child = isCurrentNodeSmaller
             ? Right
             : Left;
 
@@ -50,52 +61,32 @@ internal class BasicNode : IBasicNode
         {
             if (childNode.Value == value)
             {
-                childNode.GetLeftMostNode()
+                childNode.GetNextInOrderSuccessor()
                     .Match(
                         None: () =>
                         {
-                            if (isGreaterThan)
+                            if (isCurrentNodeSmaller)
                                 Right = Option<IBasicNode>.None;
                             else
                                 Left = Option<IBasicNode>.None;
                         },
-                        Some: l =>
-                        {
-                            var replacementChild = Option<IBasicNode>.Some(l);
-                            if (isGreaterThan)
-                                Right = replacementChild;
-                            else
-                                Left = replacementChild;
+                        Some: inOrderSuccessor => 
+                        { 
+                            //if in order successor has children 1 child, update the reference to point to that child
+                            //if it has 2, update it to be the right child
+                            var inOrderSuccessorValue = inOrderSuccessor.Value;
+                            childNode.DeleteChild(inOrderSuccessor.Value);
+                            childNode.UpdateNode(inOrderSuccessorValue);
                         });
             }
             else
                 childNode.DeleteChild(value);
         });
     }
-    
-    public Option<IBasicNode> GetLeftMostNode() =>
-        Left.Match(
-            None: () => Option<IBasicNode>.None,
-            Some: l => l.Left.Match(
-                None: () => Option<IBasicNode>.Some(l), 
-                Some: fl => fl.GetLeftMostNode()));
 
-    public void UpdateValue(int value)
+    public void Delete()
     {
-        Left.Match(None: () => { },
-            Some: l =>
-            {
-                if (l.Value > value)
-                    throw new ArgumentOutOfRangeException("Value cannot be less than left childs value");
-            });
-        Right.Match(None: () => { },
-            Some: r =>
-            {
-                if (r.Value < value)
-                    throw new AggregateException("Value cannot be greater than right childs child");
-            });
-
-        Value = value;
+        throw new NotImplementedException();
     }
 
     public void AddChild(int value)
@@ -111,4 +102,27 @@ internal class BasicNode : IBasicNode
                 None: () => Right = new BasicNode(value));
         }
     }
+
+    public Option<IBasicNode> GetNextInOrderSuccessor() =>
+        Right.Match(
+            None: () => Left.Match(
+                Some: r => Option<IBasicNode>.Some(r),
+                None: () => Option<IBasicNode>.None),
+            Some: r =>
+            {
+                return r.Left.Match(
+                    None: () => Option<IBasicNode>.Some(r),
+                    Some: l =>
+                    {
+                        var current = l;
+                        var mut = Option<IBasicNode>.Some(l);
+                        while (mut.IsSome)
+                        {
+                            current = mut.UnpackUnsafely();
+                            mut = current.Left;
+                        }
+
+                        return Option<IBasicNode>.Some(current);
+                    });
+            });
 }

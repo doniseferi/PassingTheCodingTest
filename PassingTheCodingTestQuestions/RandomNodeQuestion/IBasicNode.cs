@@ -2,7 +2,7 @@ using LanguageExt;
 
 namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
-internal interface IBasicNode
+internal interface IBasicNode : IGetNextInOrderSuccessor,IMutableNode
 {
     Option<IBasicNode> Left { get; }
     Option<IBasicNode> Right { get; }
@@ -10,7 +10,15 @@ internal interface IBasicNode
     int Value { get; }
     void AddChild(int value);
     int Count();
+    void UpdateNode(int value);
+}
+
+internal interface IMutableNode
+{
     void DeleteChild(int value);
-    Option<IBasicNode> GetLeftMostNode();
-    void UpdateValue(int value);
+}
+
+internal interface IGetNextInOrderSuccessor
+{
+    Option<IBasicNode> GetNextInOrderSuccessor();
 }
