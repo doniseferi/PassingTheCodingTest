@@ -197,4 +197,74 @@ public class BstRandomTests
         root.AddChild(26);
         return new RandomAndBasicBst(root);
     }
+    
+    
+    [Test]
+    public void RandomNode_DistributionTest()
+    {
+        var nodeCounts = new Dictionary<int, int>();
+        int iterations = 10000; // Large number for statistical significance
+        var randomAndBasicBst = GetRandomAndBasicBst();
+        
+        for (int i = 0; i < iterations; i++)
+        {
+            var randomNode = randomAndBasicBst.GetRandomNode();
+            int nodeValue = randomNode.Value;
+
+            if (nodeCounts.ContainsKey(nodeValue))
+                nodeCounts[nodeValue]++;
+            else
+                nodeCounts[nodeValue] = 1;
+        }
+
+        var expectedNumberOfUniqueNodes = randomAndBasicBst.Root.UnpackUnsafely().Count();
+        Assert.AreEqual(expectedNumberOfUniqueNodes, nodeCounts.Keys.Count);
+
+        foreach (var count in nodeCounts.Values)
+        {
+            Assert.IsTrue(count > (iterations / nodeCounts.Count) * 0.8 && count < (iterations / nodeCounts.Count) * 1.2);
+        }
+    }
+    
+    [Test]
+    public void RandomNode_TreeWithNodes()
+    {
+        var randomAndBasicBst = GetRandomAndBasicBst();
+        var randomNode = randomAndBasicBst.GetRandomNode();
+        Assert.IsNotNull(randomNode);
+    }
+
+    [Test]
+    public void RandomNode_AfterModifications()
+    {
+        var randomAndBasicBst = GetRandomAndBasicBst();
+        randomAndBasicBst.Delete(75);
+        randomAndBasicBst.Insert(77);
+
+        var randomNode = randomAndBasicBst.GetRandomNode();
+        Assert.IsNotNull(randomNode);
+    }
+
+    private IRandomAndBasicBst GetRandomAndBasicBst()
+    {
+        // Initialize the root of the tree
+        var root = new BasicNode(100);
+
+        // Add child nodes to the root
+        root.AddChild(50);
+        root.AddChild(25);
+        root.AddChild(10);
+        root.AddChild(30);
+        root.AddChild(75);
+        root.AddChild(66);
+        root.AddChild(89);
+        root.AddChild(200);
+        root.AddChild(150);
+        root.AddChild(125);
+        root.AddChild(177);
+        root.AddChild(300);
+
+        // Initialize the binary search tree with the populated root node
+        return new RandomAndBasicBst(root);
+    }
 }

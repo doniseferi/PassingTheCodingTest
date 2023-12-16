@@ -8,4 +8,5 @@ internal interface IRandomAndBasicBst
     void Insert(int value);
     void Delete(int value);
     Option<IBasicNode> Root { get; }
+    IBasicNode GetRandomNode();
 }
