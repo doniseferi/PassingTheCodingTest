@@ -198,12 +198,11 @@ public class BstRandomTests
         return new RandomAndBasicBst(root);
     }
     
-    
     [Test]
     public void RandomNode_DistributionTest()
     {
         var nodeCounts = new Dictionary<int, int>();
-        int iterations = 10000; // Large number for statistical significance
+        var iterations = 3_000_000; // Large number for statistical significance
         var randomAndBasicBst = GetRandomAndBasicBst();
         
         for (int i = 0; i < iterations; i++)
@@ -216,7 +215,7 @@ public class BstRandomTests
             else
                 nodeCounts[nodeValue] = 1;
         }
-
+        
         var expectedNumberOfUniqueNodes = randomAndBasicBst.Root.UnpackUnsafely().Count();
         Assert.AreEqual(expectedNumberOfUniqueNodes, nodeCounts.Keys.Count);
 

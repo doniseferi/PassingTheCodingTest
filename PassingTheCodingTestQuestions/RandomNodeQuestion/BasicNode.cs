@@ -40,11 +40,6 @@ internal class BasicNode : IBasicNode
         this.Value = successor;
     }
 
-    public void UpdateNode(IMutableNode successor)
-    {
-        throw new NotImplementedException();
-    }
-
     public void DeleteChild(int value)
     {
         if (Value == value)
@@ -82,11 +77,6 @@ internal class BasicNode : IBasicNode
             else
                 childNode.DeleteChild(value);
         });
-    }
-
-    public void Delete()
-    {
-        throw new NotImplementedException();
     }
 
     public void AddChild(int value)
