@@ -63,4 +63,55 @@ public class WeaveTests
             Assert.IsTrue(result.Any(r => Enumerable.SequenceEqual(r, sequence)));
         }
     }
+    
+    [Test]
+    public void AnCounter()
+    {
+        var nums = new int[] { 1, 2, 2, 2, 3, 3, 4 };
+        var res = FindKthMostFrequent(nums, 2);
+        Assert.AreEqual(new int[]{2,3}, res);
+    }
+
+    public static int[] FindKthMostFrequent(int[] nums, int k)
+    {
+        // Step 1: Count frequencies using a dictionary
+        var counter = new Dictionary<int, int>();
+        foreach (var num in nums)
+        {
+            if (counter.ContainsKey(num))
+            {
+                counter[num]++;
+            }
+            else
+            {
+                counter[num] = 1;
+            }
+        }
+
+        var freq = new int[nums.Length + 1];
+        foreach (var (value, count) in counter)
+        {
+            freq[count] = value;
+        }
+
+        var c = 0;
+        //for i length, i != 0; i--
+        //
+        var accum = new int[k];
+        for (var i = 0; i != k; i++)
+        {
+            accum[i] = 0;
+        }
+        for (var i = freq.Length - 1; i != 0; i--)
+        {
+            if (freq[i] == 0)
+                continue;
+            if (c == k)
+                return accum;            
+            accum[c] = freq[i];
+            c++;
+        }
+
+        return accum;
+    }
 }

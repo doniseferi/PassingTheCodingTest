@@ -4,6 +4,23 @@ namespace PassingTheCodingTestQuestions;
 
 internal class DepthFirstSearch
 {
+    public static Node Search_(Node node, int value)
+    {
+        var stack = new Stack<Node>();
+        stack.Push(node);
+        while (stack.Count > 0)
+        {
+            var current = stack.Pop();
+            if (current.Value == value)
+                return current;
+
+            current.Right.IfSome(right => stack.Push(right));
+            current.Left.IfSome(left => stack.Push(left));
+        }
+
+        throw new KeyNotFoundException();
+    }
+    
     public static Option<Node> Search(Node node, int value)
     {
         if (node.Value == value)

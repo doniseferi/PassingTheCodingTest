@@ -14,7 +14,7 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
         _root;
 
     public IBasicNode GetRandomNode() => _root.Match(
-        Some: r => RandomNodeAlgorithm.Get(r),
+        Some: r => RandomNodeAlgorithm.GetRandomNode(r),
         None: () => throw new ArgumentNullException());
 
     public Option<IBasicNode> Find(int value) =>

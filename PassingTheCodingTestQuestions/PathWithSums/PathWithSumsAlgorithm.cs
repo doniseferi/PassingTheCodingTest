@@ -41,8 +41,17 @@ internal static class PathWithSumsAlgorithm
             if (newParents.Sum() == value && newParents.Count() > 1)
                 paths.Add(newParents.ToArray());
 
-            node.Left.IfSome(x => GetPathWithSums(x, newParents.ToList()));
-            node.Right.IfSome(x => GetPathWithSums(x, newParents.ToList()));
+            node.Left.IfSome(x =>
+            {
+                GetPathWithSums(x, newParents.ToList());
+                GetPathWithSums(x, new List<int>());
+            });
+            node.Right.IfSome(x =>
+            {
+                
+                GetPathWithSums(x, newParents.ToList());
+                GetPathWithSums(x, new List<int>());
+            });
         }
     }
 }
