@@ -28,18 +28,22 @@ internal static class NodeExtensions
         var allLefts = subtree
             .Left
             .Match(
-                None: () => true,
+                None: () => b.Left.Match(
+                    Some: _ => false, 
+                    None: () => true),
                 Some: s =>
-                b.Left.Match(None: () => false,
-                    Some: r => CanWalkTogether(s, r)));
-
+                    b.Left.Match(
+                        Some: _ => false,
+                        None: () => true)
+            );
         if (!allLefts)
-            return false;
+           return false;
         
         var allRights = subtree
             .Right
             .Match(
-                None: () => true,
+                None: () => b.Right.Match(None: () => true,
+                    Some: _ => false),
                 Some: s =>
                     b.Right.Match(None: () => false,
                         Some: r => CanWalkTogether(s, r)));

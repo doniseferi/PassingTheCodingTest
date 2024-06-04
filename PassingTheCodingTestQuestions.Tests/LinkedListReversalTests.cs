@@ -36,7 +36,7 @@ public class LinkedListReversalTests
     }
 
     [Test]
-    public void TestReversalOfListWithTwoElements()
+    public void TestReversalOfListWithThreeElements()
     {
         var head = new ListNode<int>(1, new ListNode<int>(2, new ListNode<int>(3)));
         var reversedList = ListNode<int>.InPlaceLinkedListReversal(head);
