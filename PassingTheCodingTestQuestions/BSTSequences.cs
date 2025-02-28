@@ -1,7 +1,3 @@
-using System.Collections.Specialized;
-using System.Net.NetworkInformation;
-using LanguageExt.ClassInstances.Const;
-
 namespace PassingTheCodingTestQuestions;
 
 internal static class BstSequences
@@ -15,10 +11,7 @@ internal static class BstSequences
         var right = node.Right;
         return left.Match(None: () =>
             {
-                return right.Match(None: () =>
-                    {
-                        return new int[1][] { new [] { node.Value }  };
-                    },
+                return right.Match(None: () => { return new int[1][] { new[] { node.Value } }; },
                     Some: r =>
                     {
                         var prepended = r.GetAllBstSequences().Select(x => x.Prepend(node.Value).ToArray()).ToArray();
@@ -38,14 +31,11 @@ internal static class BstSequences
                         var rightSequences = r.GetAllBstSequences();
                         var leftSequences = l.GetAllBstSequences();
                         foreach (var rArr in rightSequences)
+                        foreach (var lArr in leftSequences)
                         {
-                            foreach (var lArr in leftSequences)
-                            {
-
-                                var stitched = Stitch(lArr, rArr).Select(x => x.ToList()).ToList();
-                                var prepended = stitched.Select(x => x.Prepend(node.Value).ToList()).ToList();
-                                accum.AddRange(prepended);
-                            }
+                            var stitched = Stitch(lArr, rArr).Select(x => x.ToList()).ToList();
+                            var prepended = stitched.Select(x => x.Prepend(node.Value).ToList()).ToList();
+                            accum.AddRange(prepended);
                         }
 
                         return accum.Select(x => x.ToArray()).ToArray();
@@ -63,16 +53,16 @@ internal static class BstSequences
         Stitch(leftLinkedList, rightLinkedList, new LinkedList<int>(), accum);
         return accum.Select(x => x.ToArray()).ToArray();
     }
-    
+
     /*
      * this is horrific, convert to an expressive recursive method but for the time being function is better than no function
      */
     private static void Stitch(LinkedList<int> b, LinkedList<int> c, LinkedList<int> prefix, List<List<int>> Accum)
     {
-        if (b.Count != 0 && (c.Count == 0 && b.Count != 0) || (c.Count != 0 && b.Count == 0))
+        if ((b.Count != 0 && c.Count == 0 && b.Count != 0) || (c.Count != 0 && b.Count == 0))
         {
             var set = (c.Count > 0 ? c : b).ToList();
-            var seq =  prefix.Concat(set).ToList();
+            var seq = prefix.Concat(set).ToList();
             Accum.Add(seq);
             return;
         }

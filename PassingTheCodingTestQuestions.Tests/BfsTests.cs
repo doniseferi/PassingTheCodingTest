@@ -5,8 +5,6 @@ namespace TestProject1;
 [TestFixture]
 public class BfsTests
 {
-    private Node _root;
-
     [SetUp]
     public void SetUp()
     {
@@ -28,6 +26,8 @@ public class BfsTests
         //     / \   / \
         //    1   3 5   7
     }
+
+    private Node _root;
 
     [Test]
     public void Test_FindExistingValue()

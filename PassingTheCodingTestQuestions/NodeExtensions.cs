@@ -11,7 +11,7 @@ internal static class NodeExtensions
 
         if (subtree == null)
             throw new ArgumentNullException(nameof(subtree));
-        
+
         return node
             .Find(subtree.Value)
             .Match(
@@ -29,16 +29,16 @@ internal static class NodeExtensions
             .Left
             .Match(
                 None: () => b.Left.Match(
-                    Some: _ => false, 
-                    None: () => true),
+                    _ => false,
+                    () => true),
                 Some: s =>
                     b.Left.Match(
-                        Some: _ => false,
-                        None: () => true)
+                        _ => false,
+                        () => true)
             );
         if (!allLefts)
-           return false;
-        
+            return false;
+
         var allRights = subtree
             .Right
             .Match(
@@ -49,7 +49,6 @@ internal static class NodeExtensions
                         Some: r => CanWalkTogether(s, r)));
 
         return allRights;
-
     }
 
     private static Option<Node> Find(this Node node, int value)
@@ -61,13 +60,12 @@ internal static class NodeExtensions
             ? node
                 .Right
                 .Match(
-                    None: () => Option<Node>.None, 
+                    None: () => Option<Node>.None,
                     Some: r => r.Find(value))
-        :
-             node
+            : node
                 .Left
                 .Match(
-                    None: () => Option<Node>.None, 
+                    None: () => Option<Node>.None,
                     Some: l => l.Find(value));
     }
 }

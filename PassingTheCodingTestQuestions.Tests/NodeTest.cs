@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using Newtonsoft.Json;
 using PassingTheCodingTestQuestions;
 
 namespace TestProject1;
@@ -32,8 +30,8 @@ public class NodeTest
                 var expectedValue = values[x];
                 Assert.IsTrue(n.IsSome);
                 n.Match(
-                    Some: y => Assert.AreEqual(y.Value, expectedValue),
-                    None: () => Assert.Fail());
+                    y => Assert.AreEqual(y.Value, expectedValue),
+                    () => Assert.Fail());
             });
 
         invalidValues.Map(x => PassingTheCodingTestQuestions.BreadthFirstSearch.Search(node, x))

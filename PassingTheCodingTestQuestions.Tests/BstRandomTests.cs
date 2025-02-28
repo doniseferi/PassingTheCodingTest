@@ -5,13 +5,9 @@ using PassingTheCodingTestQuestions.RandomNodeQuestion;
 
 namespace TestProject1;
 
-using NUnit.Framework;
-
 [TestFixture]
 public class BstRandomTests
 {
-    private IRandomAndBasicBst _randomAndBasicBst;
-
     [SetUp]
     public void SetUp()
     {
@@ -32,11 +28,13 @@ public class BstRandomTests
         _randomAndBasicBst = new RandomAndBasicBst(root);
     }
 
+    private IRandomAndBasicBst _randomAndBasicBst;
+
     [Test]
     public void Find_NodeWithMatchingValue_ReturnsNode()
     {
         // Arrange
-        int existingValue = 75;
+        var existingValue = 75;
         var result = _randomAndBasicBst.Find(existingValue);
 
         // Assert
@@ -135,9 +133,10 @@ public class BstRandomTests
         var inorderSuccessor = root.Left.UnpackUnsafely();
         Assert.That(inorderSuccessor.Value, Is.EqualTo(24));
     }
-    
+
     [Test]
-    public void Delete_NodeWithInOrderSuccessor_AndInOrderSuccessorHasChildren_CorrectlyUpdatesInOrderSuccessorWithChild()
+    public void
+        Delete_NodeWithInOrderSuccessor_AndInOrderSuccessorHasChildren_CorrectlyUpdatesInOrderSuccessorWithChild()
     {
         var bst = CreateBstWithTestData();
 
@@ -152,7 +151,7 @@ public class BstRandomTests
         var leftChildOfTwentySeven = twentySeven.Left.UnpackUnsafely();
         Assert.That(leftChildOfTwentySeven.Value, Is.EqualTo(26));
     }
-    
+
     [Test]
     [TestCase(50, 75)]
     [TestCase(21, 24)]
@@ -197,34 +196,32 @@ public class BstRandomTests
         root.AddChild(26);
         return new RandomAndBasicBst(root);
     }
-    
+
     [Test]
     public void RandomNode_DistributionTest()
     {
         var nodeCounts = new Dictionary<int, int>();
         var iterations = 3_000_000; // Large number for statistical significance
         var randomAndBasicBst = GetRandomAndBasicBst();
-        
-        for (int i = 0; i < iterations; i++)
+
+        for (var i = 0; i < iterations; i++)
         {
             var randomNode = randomAndBasicBst.GetRandomNode();
-            int nodeValue = randomNode.Value;
+            var nodeValue = randomNode.Value;
 
             if (nodeCounts.ContainsKey(nodeValue))
                 nodeCounts[nodeValue]++;
             else
                 nodeCounts[nodeValue] = 1;
         }
-        
+
         var expectedNumberOfUniqueNodes = randomAndBasicBst.Root.UnpackUnsafely().Count();
         Assert.AreEqual(expectedNumberOfUniqueNodes, nodeCounts.Keys.Count);
 
         foreach (var count in nodeCounts.Values)
-        {
-            Assert.IsTrue(count > (iterations / nodeCounts.Count) * 0.8 && count < (iterations / nodeCounts.Count) * 1.2);
-        }
+            Assert.IsTrue(count > iterations / nodeCounts.Count * 0.8 && count < iterations / nodeCounts.Count * 1.2);
     }
-    
+
     [Test]
     public void RandomNode_TreeWithNodes()
     {

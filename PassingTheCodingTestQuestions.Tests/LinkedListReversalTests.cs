@@ -44,7 +44,7 @@ public class LinkedListReversalTests
         Assert.AreEqual(3, reversedList.Value);
         Assert.AreEqual(2, reversedList.Next.Value);
         Assert.AreEqual(1, reversedList.Next.Next.Value);
-        Assert.IsNull(reversedList.Next.Next);
+        Assert.IsNull(reversedList.Next.Next.Next);
     }
 
     [Test]

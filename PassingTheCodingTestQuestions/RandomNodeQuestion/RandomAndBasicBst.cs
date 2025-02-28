@@ -4,26 +4,35 @@ namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
 internal class RandomAndBasicBst : IRandomAndBasicBst
 {
-    private static Action NoOp = () => {};
+    private static readonly Action NoOp = () => { };
     private Option<IBasicNode> _root;
 
-    public RandomAndBasicBst(IBasicNode root) =>
+    public RandomAndBasicBst(IBasicNode root)
+    {
         _root = Option<IBasicNode>.Some(root);
+    }
 
     public Option<IBasicNode> Root =>
         _root;
 
-    public IBasicNode GetRandomNode() => _root.Match(
-        Some: r => RandomNodeAlgorithm.GetRandomNode(r),
-        None: () => throw new ArgumentNullException());
+    public IBasicNode GetRandomNode()
+    {
+        return _root.Match(
+            r => RandomNodeAlgorithm.GetRandomNode(r),
+            () => throw new ArgumentNullException());
+    }
 
-    public Option<IBasicNode> Find(int value) =>
-        _root.Match(None: () => Option<IBasicNode>.None,
+    public Option<IBasicNode> Find(int value)
+    {
+        return _root.Match(None: () => Option<IBasicNode>.None,
             Some: root => root.Find(value));
+    }
 
-    public void Insert(int value) =>
+    public void Insert(int value)
+    {
         _root.Match(None: NoOp,
             Some: root => root.AddChild(value));
+    }
 
     public void Delete(int value)
     {
@@ -32,7 +41,6 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
             Some: root =>
             {
                 if (root.Value == value)
-                {
                     root.Left.Match(
                         None: () => root.Right.Match(
                             None: () => _root = Option<IBasicNode>.None,
@@ -47,14 +55,11 @@ internal class RandomAndBasicBst : IRandomAndBasicBst
                                 hasSmallerChildren = hasSmallerChildren.Map(x => x.Left)
                                     .IfNone(() => hasSmallerChildren = Option<IBasicNode>.None);
                             }
+
                             root.UpdateNode(leftMostChild.Value);
-                            
                         });
-                }
                 else
-                {
                     root.DeleteChild(value);
-                }
             });
     }
 }

@@ -18,7 +18,7 @@ public static class IntExtensions
 
         return Option<int>.None;
     }
-    
+
     public static int[] Inject(this int[] arr, int value, int index)
     {
         if (index > arr.Length || index < 0)
@@ -27,23 +27,14 @@ public static class IntExtensions
         var accum = new int[arr.Length + 1];
 
         for (var i = 0; i < arr.Length; i++)
-        {
             if (i > index)
-            {
                 accum[i + 1] = arr[i];
-            }
             else if (i < index)
-            {
                 accum[i] = arr[i];
-            }
-            else if (i == index && arr.Length > 0)
-            {
-                accum[i + 1] = arr[i];
-            }
-        }
+            else if (i == index && arr.Length > 0) accum[i + 1] = arr[i];
 
         accum[index] = value;
-        
+
         return accum;
     }
 
@@ -54,12 +45,11 @@ public static class IntExtensions
 
         var accum = new int[source.Length() + 1];
         var indexToInjectValue = GetIndexOfTargetValue();
-        
+
         if (indexToInjectValue == 0)
             return Array.Empty<int>();
 
         for (var i = 0; i < source.Length; i++)
-        {
             if (i < indexToInjectValue)
             {
                 accum[i] = source[i];
@@ -73,20 +63,15 @@ public static class IntExtensions
             {
                 accum[i + 1] = source[i];
             }
-        }
 
         return accum;
 
         int GetIndexOfTargetValue()
         {
             for (var i = 0; i < source.Length(); i++)
-            {
                 if (source[i] == targetValue)
-                {
                     return i;
-                }
-            }
-            
+
             throw new ArgumentException();
         }
     }
@@ -101,7 +86,7 @@ public static class IntExtensions
         {
             if (item == subject)
                 return accum.ToArray();
-            
+
             accum.Add(item);
         }
 
@@ -115,10 +100,8 @@ public static class IntExtensions
 
         var accum = new List<int>();
         foreach (var item in arr)
-        {
             if (item != value)
                 accum.Add(item);
-        }
 
         return accum.ToArray();
     }

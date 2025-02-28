@@ -67,15 +67,15 @@ public class QuickSortTests
         var result = QuickSort.Sort(input);
         Assert.That(result, Is.EqualTo(expected));
     }
-    
+
     [Test]
     public void Partition_SimpleArray_ReturnsCorrectIndexAndPartitionsArray()
     {
         int[] array = { 10, 80, 30, 90, 40, 50, 70 };
-        int expectedPartitionIndex = 4;
+        var expectedPartitionIndex = 4;
         int[] expectedArray = { 10, 30, 40, 50, 70, 90, 80 };
 
-        int partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
+        var partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
 
         Assert.AreEqual(expectedPartitionIndex, partitionIndex);
         Assert.AreEqual(expectedArray, array);
@@ -85,10 +85,10 @@ public class QuickSortTests
     public void Partition_ArrayWithAllElementsSame_ReturnsCorrectIndexAndPartitionsArray()
     {
         int[] array = { 5, 5, 5, 5, 5 };
-        int expectedPartitionIndex = array.Length - 1;
+        var expectedPartitionIndex = array.Length - 1;
         int[] expectedArray = { 5, 5, 5, 5, 5 };
 
-        int partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
+        var partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
 
         Assert.AreEqual(expectedPartitionIndex, partitionIndex);
         Assert.AreEqual(expectedArray, array);
@@ -98,13 +98,13 @@ public class QuickSortTests
     public void Partition_ArrayWithNegativeNumbers_ReturnsCorrectIndexAndPartitionsArray()
     {
         int[] array = { -3, -1, -7, -5, -2, -6, -4 };
-        int expectedPartitionIndex = 3;
-    
-        int partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
-    
-        var left = array[0..expectedPartitionIndex];
+        var expectedPartitionIndex = 3;
+
+        var partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
+
+        var left = array[..expectedPartitionIndex];
         var right = array.Skip(expectedPartitionIndex + 1).ToArray();
-    
+
         Assert.That(expectedPartitionIndex, Is.EqualTo(partitionIndex));
         Assert.That(left, Is.EquivalentTo(new[] { -7, -6, -5 }));
         Assert.That(right, Is.EquivalentTo(new[] { -1, -2, -3 }));
@@ -114,10 +114,10 @@ public class QuickSortTests
     public void Partition_ArrayWithSingleElement_ReturnsCorrectIndexAndPartitionsArray()
     {
         int[] array = { 1 };
-        int expectedPartitionIndex = 0;
+        var expectedPartitionIndex = 0;
         int[] expectedArray = { 1 };
 
-        int partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
+        var partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
 
         Assert.AreEqual(expectedPartitionIndex, partitionIndex);
         Assert.AreEqual(expectedArray, array);
@@ -127,10 +127,10 @@ public class QuickSortTests
     public void Partition_ArrayWithTwoElements_ReturnsCorrectIndexAndPartitionsArray()
     {
         int[] array = { 2, 1 };
-        int expectedPartitionIndex = 0;
+        var expectedPartitionIndex = 0;
         int[] expectedArray = { 1, 2 };
 
-        int partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
+        var partitionIndex = QuickSort.Partition(array, 0, array.Length - 1);
 
         Assert.AreEqual(expectedPartitionIndex, partitionIndex);
         Assert.AreEqual(expectedArray, array);

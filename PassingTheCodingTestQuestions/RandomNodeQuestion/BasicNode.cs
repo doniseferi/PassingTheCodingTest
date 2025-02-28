@@ -5,8 +5,10 @@ namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
 internal class BasicNode : IBasicNode
 {
-    public BasicNode(int value) =>
+    public BasicNode(int value)
+    {
         Value = value;
+    }
 
     public Option<IBasicNode> Left { get; private set; }
     public Option<IBasicNode> Right { get; private set; }
@@ -37,67 +39,62 @@ internal class BasicNode : IBasicNode
 
     public void UpdateNode(int successor)
     {
-        this.Value = successor;
+        Value = successor;
     }
 
     public void DeleteChild(int value)
     {
         if (Value == value)
             throw new InvalidOperationException("Cannot call delete on node");
-        
+
         var isCurrentNodeSmaller = value > Value;
-        
+
         var child = isCurrentNodeSmaller
             ? Right
             : Left;
 
-        child.Match(None:()=>{ },
-        Some: childNode =>
-        {
-            if (childNode.Value == value)
+        child.Match(None: () => { },
+            Some: childNode =>
             {
-                childNode.GetNextInOrderSuccessor()
-                    .Match(
-                        None: () =>
-                        {
-                            if (isCurrentNodeSmaller)
-                                Right = Option<IBasicNode>.None;
-                            else
-                                Left = Option<IBasicNode>.None;
-                        },
-                        Some: inOrderSuccessor => 
-                        { 
-                            //if in order successor has children 1 child, update the reference to point to that child
-                            //if it has 2, update it to be the right child
-                            var inOrderSuccessorValue = inOrderSuccessor.Value;
-                            childNode.DeleteChild(inOrderSuccessor.Value);
-                            childNode.UpdateNode(inOrderSuccessorValue);
-                        });
-            }
-            else
-                childNode.DeleteChild(value);
-        });
+                if (childNode.Value == value)
+                    childNode.GetNextInOrderSuccessor()
+                        .Match(
+                            None: () =>
+                            {
+                                if (isCurrentNodeSmaller)
+                                    Right = Option<IBasicNode>.None;
+                                else
+                                    Left = Option<IBasicNode>.None;
+                            },
+                            Some: inOrderSuccessor =>
+                            {
+                                //if in order successor has children 1 child, update the reference to point to that child
+                                //if it has 2, update it to be the right child
+                                var inOrderSuccessorValue = inOrderSuccessor.Value;
+                                childNode.DeleteChild(inOrderSuccessor.Value);
+                                childNode.UpdateNode(inOrderSuccessorValue);
+                            });
+                else
+                    childNode.DeleteChild(value);
+            });
     }
 
     public void AddChild(int value)
     {
         if (value < Value)
-        {
-            Left.Match(Some: left => left.AddChild(value),
-                None: () => Left = new BasicNode(value));
-        }
+            Left.Match(left => left.AddChild(value),
+                () => Left = new BasicNode(value));
         else
-        {
-            Right.Match(Some: right => right.AddChild(value),
-                None: () => Right = new BasicNode(value));
-        }
+            Right.Match(right => right.AddChild(value),
+                () => Right = new BasicNode(value));
     }
 
-    public Option<IBasicNode> GetNextInOrderSuccessor() =>
-        Right.Match(
+    public Option<IBasicNode> GetNextInOrderSuccessor()
+    {
+        return Right.Match(
             None: () => Left.Match(
-                Some: r => Option<IBasicNode>.Some(r),
-                None: () => Option<IBasicNode>.None),
+                r => Option<IBasicNode>.Some(r),
+                () => Option<IBasicNode>.None),
             Some: r =>
             {
                 return r.Left.Match(
@@ -115,4 +112,5 @@ internal class BasicNode : IBasicNode
                         return Option<IBasicNode>.Some(current);
                     });
             });
+    }
 }

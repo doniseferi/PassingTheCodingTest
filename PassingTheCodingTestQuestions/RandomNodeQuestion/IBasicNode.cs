@@ -2,12 +2,12 @@ using LanguageExt;
 
 namespace PassingTheCodingTestQuestions.RandomNodeQuestion;
 
-internal interface IBasicNode : IGetNextInOrderSuccessor,IMutableNode
+internal interface IBasicNode : IGetNextInOrderSuccessor, IMutableNode
 {
     Option<IBasicNode> Left { get; }
     Option<IBasicNode> Right { get; }
-    Option<IBasicNode> Find(int value);
     int Value { get; }
+    Option<IBasicNode> Find(int value);
     void AddChild(int value);
     int Count();
     void UpdateNode(int value);

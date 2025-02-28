@@ -1,7 +1,7 @@
 internal class InOrderProjectTraversal
 {
-    private readonly List<string> _projects;
     private readonly List<(string Project, string Dependent)> _projectDependencies;
+    private readonly List<string> _projects;
 
     public InOrderProjectTraversal(
         IEnumerable<string> projects,
@@ -20,20 +20,18 @@ internal class InOrderProjectTraversal
         return queue.ToList();
 
         static void InOrderTraversal(
-        ProjectNode node,
-        Action<ProjectNode> add,
-        Func<ProjectNode, bool> hasVisited,
-        Action<ProjectNode> addToVisited)
+            ProjectNode node,
+            Action<ProjectNode> add,
+            Func<ProjectNode, bool> hasVisited,
+            Action<ProjectNode> addToVisited)
         {
             if (hasVisited(node))
                 return;
 
             addToVisited(node);
             foreach (var dependency in node.Dependencies)
-            {
                 if (!hasVisited(dependency))
                     InOrderTraversal(dependency, add, hasVisited, addToVisited);
-            }
             add(node);
         }
     }
@@ -49,34 +47,26 @@ internal class InOrderProjectTraversal
 
             dependent.AddDependency(projectNode);
         }
+
         foreach (var project in _projects)
-        {
             if (!nodes.ContainsKey(project))
-            {
                 nodes[project] = new ProjectNode(project);
-            }
-        }
 
         var projectNodes = nodes.Values.ToList();
 
         var hasCircularDependency = projectNodes.Any(x => x.ContainsCircularDependency());
-        
+
         return hasCircularDependency
             ? throw new ArgumentException("Circular dependency detected")
             : projectNodes;
-        
-        
+
+
         ProjectNode GetOrAddNode(string value)
         {
-            if (nodes.ContainsKey(value))
-            {
-                return nodes[value];
-            }
-            else
-            {
-                nodes[value] = new ProjectNode(value);
-                return nodes[value];
-            }
+            if (nodes.ContainsKey(value)) return nodes[value];
+
+            nodes[value] = new ProjectNode(value);
+            return nodes[value];
         }
     }
 }

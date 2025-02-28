@@ -17,7 +17,7 @@ internal static class PathWithSumsAlgorithm
 
         return accum.ToArray();
     }
-    
+
     public static List<int[]> GetPathWithSums(Node node, int value)
     {
         var paths = new List<int[]>();
@@ -30,14 +30,14 @@ internal static class PathWithSumsAlgorithm
         {
             if (node == null)
                 return;
-            
+
             var newParents = parents == null || parents.Count == 0
                 ? new List<int> { node.Value }
                 : parents.Concat(new[] { node.Value });
-                        
+
             if (node.Value == value)
-                paths.Add(new []{node.Value});
-            
+                paths.Add(new[] { node.Value });
+
             if (newParents.Sum() == value && newParents.Count() > 1)
                 paths.Add(newParents.ToArray());
 
@@ -48,7 +48,6 @@ internal static class PathWithSumsAlgorithm
             });
             node.Right.IfSome(x =>
             {
-                
                 GetPathWithSums(x, newParents.ToList());
                 GetPathWithSums(x, new List<int>());
             });

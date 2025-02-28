@@ -9,12 +9,12 @@ internal static class BstSequenceIterative
 
         var left = node.Left;
         var right = node.Right;
-        
+
         return left.Match(
-            None: () => 
+            None: () =>
                 right.Match(
-                    None: () => new[] { new[] { node.Value } }, 
-                    Some: sr => 
+                    None: () => new[] { new[] { node.Value } },
+                    Some: sr =>
                         node
                             .Value
                             .AppendTo(
@@ -23,25 +23,23 @@ internal static class BstSequenceIterative
                 None: () => node
                     .Value
                     .AppendTo(
-                        sl.GetAllBstSequences()), 
-            Some: sr => node
-                .Value
-                .AppendTo(
-                    Weave(
-                        sl.GetAllPossibleBstSequences(),
-                        sr.GetAllPossibleBstSequences())))); 
+                        sl.GetAllBstSequences()),
+                Some: sr => node
+                    .Value
+                    .AppendTo(
+                        Weave(
+                            sl.GetAllPossibleBstSequences(),
+                            sr.GetAllPossibleBstSequences()))));
     }
 
     private static int[][] AppendTo(this int value, int[][] sequences)
     {
         var accum = new List<int[]>();
         foreach (var sequence in sequences)
-        {
             accum
                 .Add(
                     sequence
                         .Inject(value, 0));
-        }
 
         return accum.ToArray();
     }
@@ -50,32 +48,27 @@ internal static class BstSequenceIterative
     {
         if (leftSequences.Length > 0 && rightSequences.Length == 0)
             return leftSequences;
-        
+
         if (leftSequences.Length == 0 && rightSequences.Length > 0)
             return rightSequences;
-        
+
         var accum = new List<int[]>();
         foreach (var leftSequence in leftSequences)
-        {
-            foreach (var rightSequence in rightSequences)
-            {
-                accum.AddRange(
-                    WeaveArr(leftSequence, rightSequence));
-                
-            }
-        }
+        foreach (var rightSequence in rightSequences)
+            accum.AddRange(
+                WeaveArr(leftSequence, rightSequence));
 
         return accum.ToArray();
     }
-    
+
     public static int[][] WeaveArr(int[] left, int[] right)
     {
         if (left.Length > 0 && right.Length == 0)
             return new[] { left };
-        
+
         if (left.Length == 0 && right.Length > 0)
             return new[] { right };
-        
+
         var accum = new Dictionary<int, List<int[]>>();
 
         for (var n = left.Length; n != 0; n--)
@@ -102,7 +95,6 @@ internal static class BstSequenceIterative
                     foreach (var rightSequence in immediateRightMembersSequences)
 
                     {
-
                         var indexOfRightMember = Array.IndexOf(rightSequence, sr);
 
                         var indexOfCurrentNode = Array.IndexOf(rightSequence, subject);

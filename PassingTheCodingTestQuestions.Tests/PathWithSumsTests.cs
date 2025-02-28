@@ -33,7 +33,7 @@ public class PathWithSumsTests
                     1)
                 .Count);
     }
-    
+
     [Test]
     public void TestMultiplePathsToSameSum()
     {
@@ -46,7 +46,7 @@ public class PathWithSumsTests
     private Node CreateTreeForMultiplePaths()
     {
         var root = new Node(10);
-        root.Add(5);  // Left child of root
+        root.Add(5); // Left child of root
         root.Add(12); // Right child of root
 
         // Adding children to the left child of the root
@@ -145,12 +145,10 @@ public class PathWithSumsTests
     private Node CreateLargeTestTree()
     {
         var root = new Node(50);
-        for (int i = 1;
+        for (var i = 1;
              i <= 100;
              i++)
-        {
             root.Add(i);
-        }
 
         return root;
     }

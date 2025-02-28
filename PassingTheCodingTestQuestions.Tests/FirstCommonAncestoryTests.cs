@@ -6,8 +6,6 @@ namespace TestProject1;
 [TestFixture]
 public class FirstCommonAncestoryTests
 {
-    private Option<Node> _root;
-
     [SetUp]
     public void Setup()
     {
@@ -26,7 +24,9 @@ public class FirstCommonAncestoryTests
         _root.Iter(x => x.Add(6));
         _root.Iter(x => x.Add(8));
     }
-    
+
+    private Option<Node> _root;
+
     [Test]
     public void FindCommonAncestor_ReturnsCorrectAncestor_ForNodesAtDifferentLevelsSubtree()
     {
@@ -34,7 +34,7 @@ public class FirstCommonAncestoryTests
 
         // The common ancestor of 2 and 4 should be 3.
         Assert.IsTrue(commonAncestor.IsSome);
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(5)), None: () => Assert.Fail());
+        commonAncestor.Match(x => Assert.That(x.Value, Is.EqualTo(5)), () => Assert.Fail());
     }
 
     [Test]
@@ -44,7 +44,7 @@ public class FirstCommonAncestoryTests
 
         // The common ancestor of 2 and 4 should be 3.
         Assert.IsTrue(commonAncestor.IsSome);
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(3)), None: () => Assert.Fail());
+        commonAncestor.Match(x => Assert.That(x.Value, Is.EqualTo(3)), () => Assert.Fail());
     }
 
     [Test]
@@ -53,16 +53,16 @@ public class FirstCommonAncestoryTests
         var commonAncestor = _root.GetFistCommonAncestor(new Node(6), new Node(8));
 
         // The common ancestor of 6 and 8 should be 7.
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(7)), None: () => Assert.Fail());
+        commonAncestor.Match(x => Assert.That(x.Value, Is.EqualTo(7)), () => Assert.Fail());
     }
 
     [Test]
     public void FindCommonAncestor_ReturnsCorrectAncestor_ForNodesOnDifferentSides()
     {
         var commonAncestor = _root.GetFistCommonAncestor(new Node(4), new Node(6));
-        
+
         // The common ancestor of 4 and 6 should be 5.
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(5)), None: () => Assert.Fail());
+        commonAncestor.Match(x => Assert.That(x.Value, Is.EqualTo(5)), () => Assert.Fail());
     }
 
     [Test]
@@ -71,7 +71,7 @@ public class FirstCommonAncestoryTests
         var commonAncestor = _root.GetFistCommonAncestor(new Node(2), new Node(8));
 
         // The common ancestor of 2 and 8 should be the root (5).
-        commonAncestor.Match(Some: x => Assert.That(x.Value, Is.EqualTo(5)), None: () => Assert.Fail());
+        commonAncestor.Match(x => Assert.That(x.Value, Is.EqualTo(5)), () => Assert.Fail());
     }
 
     [Test]

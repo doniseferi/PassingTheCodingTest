@@ -7,7 +7,7 @@ public class MergeSort
         MergeSortRecursive(arr, 0, arr.Length - 1);
         return arr;
     }
-    
+
     private static void Merge(int[] array, int leftIndex, int middleIndex, int rightIndex)
     {
         var leftSubArrayLength = middleIndex - leftIndex + 1;
@@ -16,15 +16,9 @@ public class MergeSort
         var leftSubArray = new int[leftSubArrayLength];
         var rightSubArray = new int[rightSubArrayLength];
 
-        for (int i = 0; i < leftSubArrayLength; i++)
-        {
-            leftSubArray[i] = array[leftIndex + i];
-        }
-        
-        for (int i = 0; i < rightSubArrayLength; i++)
-        {
-            rightSubArray[i] = array[middleIndex + 1 + i];
-        }
+        for (var i = 0; i < leftSubArrayLength; i++) leftSubArray[i] = array[leftIndex + i];
+
+        for (var i = 0; i < rightSubArrayLength; i++) rightSubArray[i] = array[middleIndex + 1 + i];
         var leftSubArrayIndex = 0;
         var rightSubArrayIndex = 0;
         var mergedArrayIndex = leftIndex;
@@ -41,6 +35,7 @@ public class MergeSort
                 array[mergedArrayIndex] = rightSubArray[rightSubArrayIndex];
                 rightSubArrayIndex++;
             }
+
             mergedArrayIndex++;
         }
 

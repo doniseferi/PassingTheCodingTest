@@ -8,8 +8,8 @@ public class WeaveTests
     [Test]
     public void Weave_BothArraysEmpty_ReturnsEmptyJaggedArray()
     {
-        int[] left = new int[0];
-        int[] right = new int[0];
+        var left = new int[0];
+        var right = new int[0];
 
         int[][] result = BstSequenceIterative.WeaveArr(left, right);
 
@@ -20,7 +20,7 @@ public class WeaveTests
     public void Weave_OnlyLeftArrayProvided_ReturnsSingleSequence()
     {
         int[] left = { 1, 2, 3 };
-        int[] right = new int[0];
+        var right = new int[0];
 
         int[][] result = BstSequenceIterative.WeaveArr(left, right);
 
@@ -31,7 +31,7 @@ public class WeaveTests
     [Test]
     public void Weave_OnlyRightArrayProvided_ReturnsSingleSequence()
     {
-        int[] left = new int[0];
+        var left = new int[0];
         int[] right = { 4, 5, 6 };
 
         int[][] result = BstSequenceIterative.WeaveArr(left, right);
@@ -48,28 +48,26 @@ public class WeaveTests
 
         int[][] result = BstSequenceIterative.WeaveArr(left, right);
 
-        int[][] expectedSequences = {
-            new[] {1, 2, 3, 4},
-            new[] {1, 3, 2, 4},
-            new[] {1, 3, 4, 2},
-            new[] {3, 1, 2, 4},
-            new[] {3, 1, 4, 2},
-            new[] {3, 4, 1, 2} 
+        int[][] expectedSequences =
+        {
+            new[] { 1, 2, 3, 4 },
+            new[] { 1, 3, 2, 4 },
+            new[] { 1, 3, 4, 2 },
+            new[] { 3, 1, 2, 4 },
+            new[] { 3, 1, 4, 2 },
+            new[] { 3, 4, 1, 2 }
         };
 
         Assert.AreEqual(expectedSequences.Length, result.Length);
-        foreach (int[] sequence in expectedSequences)
-        {
-            Assert.IsTrue(result.Any(r => Enumerable.SequenceEqual(r, sequence)));
-        }
+        foreach (var sequence in expectedSequences) Assert.IsTrue(result.Any(r => r.SequenceEqual(sequence)));
     }
-    
+
     [Test]
     public void AnCounter()
     {
-        var nums = new int[] { 1, 2, 2, 2, 3, 3, 4 };
+        var nums = new[] { 1, 2, 2, 2, 3, 3, 4 };
         var res = FindKthMostFrequent(nums, 2);
-        Assert.AreEqual(new int[]{2,3}, res);
+        Assert.AreEqual(new[] { 2, 3 }, res);
     }
 
     public static int[] FindKthMostFrequent(int[] nums, int k)
@@ -77,37 +75,25 @@ public class WeaveTests
         // Step 1: Count frequencies using a dictionary
         var counter = new Dictionary<int, int>();
         foreach (var num in nums)
-        {
             if (counter.ContainsKey(num))
-            {
                 counter[num]++;
-            }
             else
-            {
                 counter[num] = 1;
-            }
-        }
 
         var freq = new int[nums.Length + 1];
-        foreach (var (value, count) in counter)
-        {
-            freq[count] = value;
-        }
+        foreach (var (value, count) in counter) freq[count] = value;
 
         var c = 0;
         //for i length, i != 0; i--
         //
         var accum = new int[k];
-        for (var i = 0; i != k; i++)
-        {
-            accum[i] = 0;
-        }
+        for (var i = 0; i != k; i++) accum[i] = 0;
         for (var i = freq.Length - 1; i != 0; i--)
         {
             if (freq[i] == 0)
                 continue;
             if (c == k)
-                return accum;            
+                return accum;
             accum[c] = freq[i];
             c++;
         }
